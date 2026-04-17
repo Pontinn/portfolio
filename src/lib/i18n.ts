@@ -68,7 +68,7 @@ export const translations = {
         title: "Pitmaster",
         subtitle: "Plataforma de Competições de Churrasco",
         description:
-          "A Pitmaster é uma plataforma completa de gerenciamento de competições de churrasco — um nicho específico e apaixonante. Lidero o desenvolvimento desse sistema desde o início, construindo toda a arquitetura backend com Java, Spring Boot e PostgreSQL, integração com dois gateways de pagamento (Stripe e MercadoPago), armazenamento de arquivos na AWS S3 e um painel administrativo com relatórios detalhados: crescimento de usuários, desempenho financeiro por plataforma de pagamento, histórico de competições e estatísticas gerais. O sistema está no ar, faturando e com centenas de usuários ativos — e continua crescendo.",
+          "A Pitmaster é uma plataforma completa de gerenciamento de competições de churrasco — um nicho específico e apaixonante. Faço parte do projeto desde o início e, com o crescimento do sistema, assumi a liderança do desenvolvimento backend. Construí toda a arquitetura com Java, Spring Boot e PostgreSQL: cadastro de usuários e times com transferência de liderança, inscrição em competições com pagamento via Stripe e MercadoPago, sistema de juízes com fluxo de solicitação e aprovação, avaliação de proteínas por sabor, aparência e textura com ranking automático, uploads de mídia na AWS S3 e painel administrativo completo com relatórios de usuários, times e desempenho financeiro. O sistema está no ar, faturando e com centenas de usuários ativos — e continua crescendo.",
       },
       kalyfit: {
         title: "KalyFit",
@@ -165,7 +165,7 @@ export const translations = {
         title: "Pitmaster",
         subtitle: "BBQ Competition Platform",
         description:
-          "Pitmaster is a full-featured platform for managing BBQ competitions — a specific and passionate niche. I've led the backend development from the ground up, building the entire architecture with Java, Spring Boot and PostgreSQL, integrating two payment gateways (Stripe and MercadoPago), file storage on AWS S3, and an admin dashboard with detailed reports: user growth, financial performance by payment platform, competition history and general statistics. The system is live, generating revenue, and serving hundreds of active users — and keeps growing.",
+          "Pitmaster is a full-featured platform for managing BBQ competitions — a specific and passionate niche. I've been part of the project from day one and, as the system grew, took on the lead of backend development. I built the entire architecture with Java, Spring Boot and PostgreSQL: user and team registration with leadership transfer, competition enrollment with payments via Stripe and MercadoPago, a judge system with request and approval flow, protein scoring by flavor, appearance and texture with automatic ranking, media uploads on AWS S3, and a full admin panel with user, team and financial reports. The system is live, generating revenue, and serving hundreds of active users — and keeps growing.",
       },
       kalyfit: {
         title: "KalyFit",

@@ -101,7 +101,7 @@ export default function About() {
                   <Briefcase size={14} className="text-[var(--purple-mid)]" /> Mave Company
                 </span>
                 <span className="flex items-center gap-1">
-                  <Calendar size={14} className="text-[var(--purple-mid)]" /> +1 {lang === "pt" ? "ano de experiência" : "year of experience"}
+                  <Calendar size={14} className="text-[var(--purple-mid)]" /> +2 {lang === "pt" ? "anos de experiência" : "years of experience"}
                 </span>
               </div>
             </div>
