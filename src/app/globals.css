@@ -28,6 +28,7 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --animate-blink: blink 1s step-end infinite;
+  --animate-fade-in: fade-in 0.4s ease forwards;
 }
 
 * {
@@ -64,4 +65,9 @@ body {
 @keyframes blink {
   0%, 50% { opacity: 0; }
   51%, 100% { opacity: 1; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }

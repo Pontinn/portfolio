@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useLang } from "@/lib/LangContext"
+import { Server, Monitor, Cloud } from "lucide-react"
 
 const skillsData = {
   backend: [
@@ -95,9 +96,9 @@ export default function Skills() {
   }, [])
 
   const categories = [
-    { key: "backend", label: t.skills.categories.backend, icon: "☕", skills: skillsData.backend },
-    { key: "frontend", label: t.skills.categories.frontend, icon: "⚛️", skills: skillsData.frontend },
-    { key: "cloud", label: t.skills.categories.cloud, icon: "☁️", skills: skillsData.cloud },
+    { key: "backend", label: t.skills.categories.backend, icon: <Server size={20} className="text-[var(--purple-light)]" />, skills: skillsData.backend },
+    { key: "frontend", label: t.skills.categories.frontend, icon: <Monitor size={20} className="text-[var(--purple-light)]" />, skills: skillsData.frontend },
+    { key: "cloud", label: t.skills.categories.cloud, icon: <Cloud size={20} className="text-[var(--purple-light)]" />, skills: skillsData.cloud },
   ]
 
   return (
@@ -114,7 +115,9 @@ export default function Skills() {
               className="skill-card opacity-0 bg-[var(--bg)] border border-[var(--purple-dark)]/20 rounded-2xl p-6 hover:border-[var(--purple-mid)]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[var(--purple-dark)]/10"
             >
               <div className="flex items-center gap-3 mb-6">
-                <span className="text-2xl">{icon}</span>
+                <div className="p-2 rounded-lg bg-[var(--purple-dark)]/15 border border-[var(--purple-dark)]/20">
+                  {icon}
+                </div>
                 <h3 className="font-bold text-[var(--text)] text-lg">{label}</h3>
               </div>
               <div className="space-y-4">

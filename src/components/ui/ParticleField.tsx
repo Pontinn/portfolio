@@ -11,7 +11,7 @@ const FOV_RAD = (55 / 2) * (Math.PI / 180)
 const CAM_Z = 5
 
 // Continuous scroll progress — updated every scroll event
-// 0 = hero, 0..1 = transitioning to about, 1 = about settled, 2 = skills+
+// 0=hero  0→1=about  1=about  1→2=skills  2=skills  2→3=experience  3=experience  3→4=projects  4=projects  4→5=contact
 const scrollSignal = { t: 0 }
 
 // Global mouse — fires even when cursor is over text/buttons
@@ -78,9 +78,34 @@ function generatePhotoCluster(count: number): Float32Array {
 function generateScatterTargets(count: number): Float32Array {
   const out = new Float32Array(count * 3)
   for (let i = 0; i < count; i++) {
-    out[i * 3] = (Math.random() - 0.5) * 10
-    out[i * 3 + 1] = (Math.random() - 0.5) * 7
-    out[i * 3 + 2] = (Math.random() - 0.5) * 3
+    out[i * 3] = (Math.random() - 0.5) * 15
+    out[i * 3 + 1] = (Math.random() - 0.5) * 11
+    out[i * 3 + 2] = (Math.random() - 0.5) * 4
+  }
+  return out
+}
+
+// Tight cluster at center for contact convergence
+function generateConvergeTargets(count: number): Float32Array {
+  const out = new Float32Array(count * 3)
+  for (let i = 0; i < count; i++) {
+    const angle  = Math.random() * Math.PI * 2
+    const phi    = Math.acos(2 * Math.random() - 1)
+    const r      = Math.pow(Math.random(), 0.5) * 0.35
+    out[i * 3]     = r * Math.sin(phi) * Math.cos(angle)
+    out[i * 3 + 1] = r * Math.sin(phi) * Math.sin(angle) * 0.6
+    out[i * 3 + 2] = r * Math.cos(phi)
+  }
+  return out
+}
+
+// Vertical column along the timeline bar — left side of screen
+function generateTimelineTargets(count: number): Float32Array {
+  const out = new Float32Array(count * 3)
+  for (let i = 0; i < count; i++) {
+    out[i * 3]     = -2.2 + (Math.random() - 0.5) * 1.2   // cluster around x=-2.2
+    out[i * 3 + 1] = (Math.random() - 0.5) * 5.5           // spread along timeline height
+    out[i * 3 + 2] = (Math.random() - 0.5) * 1.5
   }
   return out
 }
@@ -91,23 +116,33 @@ function Particles({ faceTargets }: { faceTargets: Float32Array | null }) {
   const meshRef = useRef<THREE.Points>(null)
   const { size } = useThree()
 
-  const photoTargets  = useMemo(() => generatePhotoCluster(PARTICLE_COUNT),  [])
-  const scatterTargets = useMemo(() => generateScatterTargets(PARTICLE_COUNT), [])
+  const photoTargets    = useMemo(() => generatePhotoCluster(PARTICLE_COUNT),    [])
+  const scatterTargets  = useMemo(() => generateScatterTargets(PARTICLE_COUNT),  [])
+  const timelineTargets = useMemo(() => generateTimelineTargets(PARTICLE_COUNT), [])
+  const convergeTargets = useMemo(() => generateConvergeTargets(PARTICLE_COUNT), [])
   const textPush = useRef(new Float32Array(PARTICLE_COUNT * 3))
 
   // Per-particle random values — computed once
   const rng = useMemo(() => {
-    const delay     = new Float32Array(PARTICLE_COUNT) // stagger [0..1]
-    const floatFreq  = new Float32Array(PARTICLE_COUNT) // float speed
-    const floatPhase = new Float32Array(PARTICLE_COUNT) // float phase offset
-    const floatAmp   = new Float32Array(PARTICLE_COUNT) // float amplitude
+    const delay      = new Float32Array(PARTICLE_COUNT)
+    const floatFreq  = new Float32Array(PARTICLE_COUNT)
+    const floatPhase = new Float32Array(PARTICLE_COUNT)
+    const floatAmp   = new Float32Array(PARTICLE_COUNT)
+    // Orbital params
+    const orbRadius  = new Float32Array(PARTICLE_COUNT) // [0.4 .. 3.2]
+    const orbTheta   = new Float32Array(PARTICLE_COUNT) // initial angle
+    const orbSpeed   = new Float32Array(PARTICLE_COUNT) // rad/s ∝ 1/sqrt(r)
     for (let i = 0; i < PARTICLE_COUNT; i++) {
       delay[i]      = Math.random()
       floatFreq[i]  = 0.3 + Math.random() * 0.5
       floatPhase[i] = Math.random() * Math.PI * 2
       floatAmp[i]   = 0.06 + Math.random() * 0.10
+      const r       = 0.4 + Math.random() * 2.8
+      orbRadius[i]  = r
+      orbTheta[i]   = Math.random() * Math.PI * 2
+      orbSpeed[i]   = 0.28 / Math.sqrt(r)   // Kepler: inner orbits faster
     }
-    return { delay, floatFreq, floatPhase, floatAmp }
+    return { delay, floatFreq, floatPhase, floatAmp, orbRadius, orbTheta, orbSpeed }
   }, [])
 
   const { positions, initialScatter } = useMemo(() => {
@@ -157,7 +192,7 @@ function Particles({ faceTargets }: { faceTargets: Float32Array | null }) {
       let bx: number, by: number, bz: number
 
       if (t <= 1.0) {
-        // Lerp face → photo based on scroll progress
+        // Lerp face → photo
         const hasFace = faceTargets !== null && ix + 2 < faceTargets.length
         const fx = hasFace ? faceTargets[ix]     : initialScatter[ix]
         const fy = hasFace ? faceTargets[ix + 1] : initialScatter[ix + 1]
@@ -165,35 +200,78 @@ function Particles({ faceTargets }: { faceTargets: Float32Array | null }) {
         bx = fx + (photoTargets[ix]     - fx) * t
         by = fy + (photoTargets[ix + 1] - fy) * t
         bz = fz + (photoTargets[ix + 2] - fz) * t
-      } else {
-        // t > 1: blend photo → scatter
-        const s = Math.min(t - 1, 1)
+      } else if (t <= 2.0) {
+        // Lerp photo → scatter (skills)
+        const s = t - 1
         bx = photoTargets[ix]     + (scatterTargets[ix]     - photoTargets[ix])     * s
         by = photoTargets[ix + 1] + (scatterTargets[ix + 1] - photoTargets[ix + 1]) * s
         bz = photoTargets[ix + 2] + (scatterTargets[ix + 2] - photoTargets[ix + 2]) * s
+      } else if (t <= 3.0) {
+        // Lerp scatter → timeline column (experience)
+        const s = t - 2
+        bx = scatterTargets[ix]     + (timelineTargets[ix]     - scatterTargets[ix])     * s
+        by = scatterTargets[ix + 1] + (timelineTargets[ix + 1] - scatterTargets[ix + 1]) * s
+        bz = scatterTargets[ix + 2] + (timelineTargets[ix + 2] - scatterTargets[ix + 2]) * s
+      } else if (t <= 4.0) {
+        // Lerp timeline → live orbital (projects)
+        const s     = t - 3
+        const angle = rng.orbTheta[i] + time * rng.orbSpeed[i]
+        const r     = rng.orbRadius[i]
+        const liveX = r * Math.cos(angle)
+        const liveY = r * Math.sin(angle) * 0.45
+        const liveZ = r * Math.sin(angle) * 0.22
+        bx = timelineTargets[ix]     + (liveX - timelineTargets[ix])     * s
+        by = timelineTargets[ix + 1] + (liveY - timelineTargets[ix + 1]) * s
+        bz = timelineTargets[ix + 2] + (liveZ - timelineTargets[ix + 2]) * s
+      } else {
+        // Lerp orbital → converge cluster (contact) with pulse
+        const s     = Math.min(t - 4, 1)
+        const pulse = 1 + 0.55 * Math.sin(time * 2.2 + rng.floatPhase[i] * 0.3)
+        bx = convergeTargets[ix]     * pulse
+        by = convergeTargets[ix + 1] * pulse
+        bz = convergeTargets[ix + 2] * pulse
+        // orbital "from" state bleeds in during transition
+        if (s < 1) {
+          const angle = rng.orbTheta[i] + time * rng.orbSpeed[i]
+          const r     = rng.orbRadius[i]
+          const fromX = r * Math.cos(angle)
+          const fromY = r * Math.sin(angle) * 0.45
+          const fromZ = r * Math.sin(angle) * 0.22
+          bx = fromX + (bx - fromX) * s
+          by = fromY + (by - fromY) * s
+          bz = fromZ + (bz - fromZ) * s
+        }
       }
 
-      // ── Float: gentle sine drift when settled at photo ────────────────────
-      // Ramps in as t → 1 and ramps out as t moves away
-      const floatStrength = t <= 1
-        ? Math.pow(Math.max(0, t - 0.85) / 0.15, 2)   // ramp in last 15%
-        : Math.pow(Math.max(0, 1 - (t - 1)), 2)         // ramp out after leaving
-      const fAmp = rng.floatAmp[i] * floatStrength
-      const tx = bx + Math.sin(time * rng.floatFreq[i]        + rng.floatPhase[i]) * fAmp
-      const ty = by + Math.cos(time * rng.floatFreq[i] * 0.7  + rng.floatPhase[i] * 1.4) * fAmp
+      // ── Float (disabled in projects — orbital motion replaces it)
+      const photoFloat    = t <= 1
+        ? Math.pow(Math.max(0, t - 0.85) / 0.15, 2)
+        : Math.pow(Math.max(0, 1 - (t - 1)), 2)
+      const scatterFloat  = t > 1 && t <= 2 ? Math.min(1, (t - 1) * 2) * 0.22 : t > 2 && t <= 3 ? Math.max(0, 1 - (t - 2)) * 0.22 : 0
+      const timelineFloat = t > 2 && t <= 3 ? Math.min(1, (t - 2) * 2) * 0.40 : t > 3 && t <= 4 ? Math.max(0, 1 - (t - 3)) * 0.40 : 0
+      const floatStrength = photoFloat + scatterFloat + timelineFloat
+      const fAmp  = rng.floatAmp[i] * floatStrength
+      const yBias = t > 2 && t <= 3 ? 1.8 : 0.7
+      const tx = bx + Math.sin(time * rng.floatFreq[i]           + rng.floatPhase[i]) * fAmp
+      const ty = by + Math.sin(time * rng.floatFreq[i] * yBias   + rng.floatPhase[i] * 1.4) * fAmp * (t > 2 && t <= 3 ? 1.5 : 1)
       const tz = bz
 
-      // ── Staggered lerp — creates the "trail / magic rush" feel ───────────
-      // During transition (t 0.05→0.95): particles with low delay rush first
-      const inTransition = t > 0.05 && t < 0.95
+      // ── Staggered lerp
+      const inAboutTransition   = t > 0.05 && t < 0.95
+      const inExpTransition     = t > 2.05 && t < 2.95
+      const inProjTransition    = t > 3.05 && t < 3.95
+      const inContactTransition = t > 4.05 && t < 4.95
       let lerpSpeed: number
-      if (inTransition) {
-        // Particle activates based on its delay relative to scroll progress
-        const activateAt = rng.delay[i] * 0.8       // when it "joins" the swarm
+      if (inAboutTransition) {
+        const activateAt = rng.delay[i] * 0.8
         const active     = t > activateAt ? 1 : 0
         lerpSpeed        = active ? 0.10 + rng.delay[i] * 0.06 : 0.01
+      } else if (inExpTransition || inProjTransition) {
+        lerpSpeed = 0.05 + rng.delay[i] * 0.04
+      } else if (inContactTransition) {
+        lerpSpeed = 0.06 + rng.delay[i] * 0.05
       } else {
-        lerpSpeed = t < 0.05 ? 0.025 : 0.04          // hero: slow assembly; settled: gentle
+        lerpSpeed = t < 0.05 ? 0.025 : 0.04
       }
 
       // ── Mouse repulsion ───────────────────────────────────────────────────
@@ -262,26 +340,57 @@ export default function ParticleField() {
 
   useEffect(() => {
     function onScroll() {
-      const about  = document.getElementById("about")
-      const skills = document.getElementById("skills")
-      const vh     = window.innerHeight
+      const about      = document.getElementById("about")
+      const skills     = document.getElementById("skills")
+      const experience = document.getElementById("experience")
+      const projects   = document.getElementById("projects")
+      const contact    = document.getElementById("contact")
+      const vh         = window.innerHeight
 
       if (!about) return
 
-      // Skills+ zone: blend from 1→2 as skills section enters
+      // Contact zone: t 4→5
+      if (contact) {
+        const cr = contact.getBoundingClientRect().top
+        if (cr < vh * 0.75) {
+          const s = (vh * 0.75 - cr) / (vh * 0.55)
+          scrollSignal.t = 4 + Math.max(0, Math.min(1, s))
+          return
+        }
+      }
+
+      // Projects zone: t 3→4
+      if (projects) {
+        const pr = projects.getBoundingClientRect().top
+        if (pr < vh * 0.75) {
+          const s = (vh * 0.75 - pr) / (vh * 0.55)
+          scrollSignal.t = 3 + Math.max(0, Math.min(1, s))
+          return
+        }
+      }
+
+      // Experience zone: t 2→3
+      if (experience) {
+        const er = experience.getBoundingClientRect().top
+        if (er < vh * 0.75) {
+          const s = (vh * 0.75 - er) / (vh * 0.55)
+          scrollSignal.t = 2 + Math.max(0, Math.min(1, s))
+          return
+        }
+      }
+
+      // Skills zone: t 1→2
       if (skills) {
         const sr = skills.getBoundingClientRect().top
-        if (sr < vh * 0.5) {
-          const s = (vh * 0.5 - sr) / (vh * 0.5)
+        if (sr < vh * 0.75) {
+          const s = (vh * 0.75 - sr) / (vh * 0.55)
           scrollSignal.t = 1 + Math.max(0, Math.min(1, s))
           return
         }
       }
 
-      // About zone: transition from 0→1 as soon as about enters the viewport
+      // About zone: t 0→1
       const ar = about.getBoundingClientRect().top
-      // Start: about top at vh (just entering from bottom)
-      // End:   about top at vh * 0.15 (well centred)
       const raw = (vh - ar) / (vh * 0.85)
       scrollSignal.t = Math.max(0, Math.min(1, raw))
     }

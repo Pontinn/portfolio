@@ -97,10 +97,10 @@ export default function Contact() {
               href={href}
               target={key !== "email" ? "_blank" : undefined}
               rel="noopener noreferrer"
-              className={`contact-item opacity-0 flex items-center justify-between gap-4 px-6 py-4 rounded-2xl border border-[var(--purple-dark)]/20 bg-[var(--bg-secondary)]/30 hover:border-[var(--purple-mid)]/50 hover:bg-[var(--bg-secondary)]/60 transition-all duration-300 group ${color}`}
+              className={`contact-item opacity-0 flex items-center justify-between gap-4 px-6 py-4 rounded-2xl border border-[var(--purple-dark)]/30 bg-[var(--bg-secondary)] hover:border-[var(--purple-mid)]/60 transition-all duration-300 group ${color}`}
             >
               <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-xl bg-[var(--purple-dark)]/20 flex items-center justify-center group-hover:bg-[var(--purple-dark)]/40 transition-colors">
+                <div className="w-10 h-10 rounded-xl bg-[var(--purple-dark)]/30 flex items-center justify-center group-hover:bg-[var(--purple-dark)]/50 transition-colors">
                   <Icon size={18} className="text-[var(--purple-mid)] group-hover:text-[var(--purple-light)] transition-colors" />
                 </div>
                 <div className="text-left">

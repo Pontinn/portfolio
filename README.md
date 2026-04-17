@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# pontin.dev — Portfolio
 
-## Getting Started
+Portfolio pessoal de Leonardo Pontin, desenvolvedor Full Stack com foco em backend.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Stack
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Framework**
+- [Next.js 15](https://nextjs.org/) — App Router, server components, API routes
+- [TypeScript](https://www.typescriptlang.org/)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**Estilização**
+- [Tailwind CSS v4](https://tailwindcss.com/)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**3D & Partículas**
+- [Three.js](https://threejs.org/) — renderer WebGL
+- [React Three Fiber](https://docs.pmnd.rs/react-three-fiber) — renderer React para Three.js
+- [@react-three/drei](https://github.com/pmndrs/drei) — helpers para Three.js
 
-## Learn More
+**Animação**
+- [GSAP](https://gsap.com/) + ScrollTrigger + TextPlugin — animações de scroll e efeito de digitação
+- [Framer Motion](https://www.framer.com/motion/) — transições de UI
 
-To learn more about Next.js, take a look at the following resources:
+**Ícones**
+- [Lucide React](https://lucide.dev/)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Internacionalização**
+- i18n customizado — PT-BR / EN com detecção automática via `navigator.language` e [ipapi.co](https://ipapi.co/)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**APIs**
+- GitHub REST API — repositórios públicos (proxy server-side com cache de 1h)
 
-## Deploy on Vercel
+## Funcionalidades
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Campo de partículas (Three.js/R3F) reagindo a scroll, mouse e digitação
+- Estados de partículas por seção: retrato → cluster do sobre → scatter de skills → timeline de experiência → órbita de projetos → convergência de contato
+- Efeito de digitação GSAP no Hero com zona de repulsão nas partículas
+- Tema dark / light
+- Idioma PT-BR / EN com detecção automática
+- Totalmente responsivo
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+# pontin.dev — Portfolio
+
+Personal portfolio of Leonardo Pontin, Full Stack Developer with a backend focus.
+
+---
+
+## Stack
+
+**Framework**
+- [Next.js 15](https://nextjs.org/) — App Router, server components, API routes
+- [TypeScript](https://www.typescriptlang.org/)
+
+**Styling**
+- [Tailwind CSS v4](https://tailwindcss.com/)
+
+**3D & Particles**
+- [Three.js](https://threejs.org/) — WebGL renderer
+- [React Three Fiber](https://docs.pmnd.rs/react-three-fiber) — React renderer for Three.js
+- [@react-three/drei](https://github.com/pmndrs/drei) — Three.js helpers
+
+**Animation**
+- [GSAP](https://gsap.com/) + ScrollTrigger + TextPlugin — scroll animations and typing effect
+- [Framer Motion](https://www.framer.com/motion/) — UI transitions
+
+**Icons**
+- [Lucide React](https://lucide.dev/)
+
+**Internationalization**
+- Custom i18n — PT-BR / EN with automatic detection via `navigator.language` and [ipapi.co](https://ipapi.co/)
+
+**APIs**
+- GitHub REST API — public repositories (server-side proxy with 1h cache)
+
+## Features
+
+- Particle field (Three.js/R3F) reacting to scroll, mouse and typing
+- Per-section particle states: face portrait → about cluster → skills scatter → experience timeline → projects orbital → contact convergence
+- GSAP typing effect in Hero with particle repulsion zone
+- Dark / Light theme
+- PT-BR / EN language toggle with auto-detection
+- Fully responsive

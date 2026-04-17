@@ -6,6 +6,7 @@ import Experience from "@/components/sections/Experience"
 import Projects from "@/components/sections/Projects"
 import Contact from "@/components/sections/Contact"
 import ParticleField from "@/components/ui/ParticleFieldWrapper"
+import HardwareNotice from "@/components/ui/HardwareNotice"
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
         <Projects />
         <Contact />
       </main>
+      <HardwareNotice />
     </>
   )
 }

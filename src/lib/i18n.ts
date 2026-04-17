@@ -45,14 +45,14 @@ export const translations = {
         {
           company: "Mave Company",
           role: "Líder de TI · Full Stack Developer",
-          period: "2022 — Presente",
+          period: "2024 — Presente",
           description:
-            "Comecei como Junior desenvolvendo landing pages e sites institucionais com WordPress. Migrei progressivamente para desenvolvimento com código puro. Hoje lidero o setor de TI, coordeno times e entrego sistemas complexos em produção — incluindo a plataforma Pitmaster de competições de churrasco.",
+            "Entrei como desenvolvedor criando landing pages e sites institucionais. Migrei progressivamente para desenvolvimento com código puro e, em 2026, assumi a liderança do setor de TI. Hoje lidero o setor e entrego sistemas complexos em produção — incluindo a plataforma Pitmaster de competições de churrasco.",
         },
         {
           company: "Freelance",
           role: "Backend Developer",
-          period: "2023 — Presente",
+          period: "2024 — Presente",
           description:
             "Desenvolvimento backend para clientes de diferentes segmentos. Projetos incluem KalyFit (app de emagrecimento com IA, Play Store e Apple Store) e KobaFit (plataforma fitness SaaS multi-tenant atendendo Brasil e Argentina).",
         },
@@ -142,14 +142,14 @@ export const translations = {
         {
           company: "Mave Company",
           role: "IT Lead · Full Stack Developer",
-          period: "2022 — Present",
+          period: "2024 — Present",
           description:
-            "Started as a Junior building landing pages and institutional websites with WordPress. Progressively migrated to writing pure code. Today I lead the IT department, coordinate teams, and deliver complex systems in production — including the Pitmaster BBQ competition platform.",
+            "Joined as a developer building landing pages and institutional websites. Progressively moved to writing pure code and, in 2026, took on the IT Lead role. Today I lead the department and deliver complex systems in production — including the Pitmaster BBQ competition platform.",
         },
         {
           company: "Freelance",
           role: "Backend Developer",
-          period: "2023 — Present",
+          period: "2024 — Present",
           description:
             "Backend development for clients across different segments. Projects include KalyFit (AI weight loss app, Play Store and Apple Store) and KobaFit (multi-tenant SaaS fitness platform serving Brazil and Argentina).",
         },

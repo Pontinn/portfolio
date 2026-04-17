@@ -29,6 +29,17 @@ export default function Experience() {
         },
       }
     )
+
+    sectionRef.current.querySelectorAll(".timeline-dot").forEach((dot, i) => {
+      gsap.to(dot, {
+        y: -6,
+        duration: 1.8 + i * 0.4,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,
+        delay: i * 0.7,
+      })
+    })
   }, [])
 
   return (
@@ -46,7 +57,7 @@ export default function Experience() {
             {t.experience.items.map((item, i) => (
               <div key={i} className="exp-item opacity-0 relative flex gap-8 pl-16">
                 {/* Dot */}
-                <div className="absolute left-4 top-1 w-4 h-4 rounded-full bg-[var(--purple-mid)] border-2 border-[var(--bg)] -translate-x-1/2 shadow-lg shadow-[var(--purple-mid)]/50" />
+                <div className="timeline-dot absolute left-4 top-1 w-4 h-4 rounded-full bg-[var(--purple-mid)] border-2 border-[var(--bg)] -translate-x-1/2 shadow-lg shadow-[var(--purple-mid)]/50" />
 
                 <div className="flex-1 bg-[var(--bg-secondary)]/40 border border-[var(--purple-dark)]/20 rounded-2xl p-6 hover:border-[var(--purple-mid)]/40 transition-all duration-300">
                   <div className="flex flex-wrap items-start justify-between gap-2 mb-3">
