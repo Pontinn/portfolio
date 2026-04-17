@@ -137,7 +137,7 @@ export default function Projects() {
         </h2>
 
         {/* Pitmaster — destaque */}
-        <div className="proj-card opacity-0 mb-10 group relative rounded-3xl border border-[var(--purple-mid)]/40 bg-gradient-to-br from-[var(--bg)] via-[var(--bg)] to-[var(--purple-dark)]/10 p-8 hover:border-[var(--purple-mid)]/70 transition-all duration-500 hover:shadow-xl hover:shadow-[var(--purple-dark)]/20">
+        <div className="proj-card opacity-0 mb-10 group relative rounded-3xl border border-[var(--purple-mid)]/40 bg-gradient-to-br from-[var(--bg)] via-[var(--bg)] to-[var(--purple-dark)]/10 p-6 md:p-8 hover:border-[var(--purple-mid)]/70 transition-all duration-500 hover:shadow-xl hover:shadow-[var(--purple-dark)]/20">
           <div className="absolute top-4 right-4 flex gap-2">
             <span className="flex items-center gap-1 text-xs font-semibold bg-green-500/15 text-green-400 border border-green-500/30 px-3 py-1 rounded-full">
               <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
@@ -145,7 +145,7 @@ export default function Projects() {
             </span>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 items-center">
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8 items-center">
             <div>
               <div className="text-[var(--purple-light)] text-xs font-semibold tracking-widest uppercase mb-2">
                 Destaque
@@ -217,7 +217,7 @@ export default function Projects() {
                 </span>
               </div>
 
-              <h3 className="text-xl font-bold text-[var(--text)] mb-1 pr-28">{proj.title}</h3>
+              <h3 className="text-xl font-bold text-[var(--text)] mb-1 pr-20 md:pr-28">{proj.title}</h3>
               <p className="text-[var(--purple-mid)] text-sm font-medium mb-3">{proj.subtitle}</p>
               <p className="text-xs text-[var(--text)] opacity-65 leading-relaxed mb-4">{proj.description}</p>
               <div className="flex flex-wrap gap-1.5 mb-3">

@@ -7,10 +7,12 @@ import Projects from "@/components/sections/Projects"
 import Contact from "@/components/sections/Contact"
 import ParticleField from "@/components/ui/ParticleFieldWrapper"
 import HardwareNotice from "@/components/ui/HardwareNotice"
+import SmoothScroll from "@/components/ui/SmoothScroll"
 
 export default function Home() {
   return (
     <>
+      <SmoothScroll />
       <ParticleField />
       <Navbar />
       <main className="relative" style={{ zIndex: 1 }}>

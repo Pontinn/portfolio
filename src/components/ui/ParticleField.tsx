@@ -112,7 +112,7 @@ function generateTimelineTargets(count: number): Float32Array {
 
 // ─── Particles ────────────────────────────────────────────────────────────────
 
-function Particles({ faceTargets }: { faceTargets: Float32Array | null }) {
+function Particles({ faceTargets, isMobile }: { faceTargets: Float32Array | null; isMobile: boolean }) {
   const meshRef = useRef<THREE.Points>(null)
   const { size } = useThree()
 
@@ -274,14 +274,16 @@ function Particles({ faceTargets }: { faceTargets: Float32Array | null }) {
         lerpSpeed = t < 0.05 ? 0.025 : 0.04
       }
 
-      // ── Mouse repulsion ───────────────────────────────────────────────────
-      const dx   = pos[ix] - mx
-      const dy   = pos[ix + 1] - my
-      const dist = Math.sqrt(dx * dx + dy * dy)
-      if (dist < mouseRepelRadius && dist > 0.001) {
-        const force = ((mouseRepelRadius - dist) / mouseRepelRadius) * mouseRepelStrength
-        pos[ix]     += (dx / dist) * force
-        pos[ix + 1] += (dy / dist) * force
+      // ── Mouse repulsion (desktop only)
+      if (!isMobile) {
+        const dx   = pos[ix] - mx
+        const dy   = pos[ix + 1] - my
+        const dist = Math.sqrt(dx * dx + dy * dy)
+        if (dist < mouseRepelRadius && dist > 0.001) {
+          const force = ((mouseRepelRadius - dist) / mouseRepelRadius) * mouseRepelStrength
+          pos[ix]     += (dx / dist) * force
+          pos[ix + 1] += (dy / dist) * force
+        }
       }
 
       // ── Text zone repulsion (hero only) ───────────────────────────────────
@@ -331,6 +333,14 @@ function Particles({ faceTargets }: { faceTargets: Float32Array | null }) {
 
 export default function ParticleField() {
   const [faceTargets, setFaceTargets] = useState<Float32Array | null>(null)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener("resize", check, { passive: true })
+    return () => window.removeEventListener("resize", check)
+  }, [])
 
   useEffect(() => {
     const img = new Image()
@@ -407,7 +417,7 @@ export default function ParticleField() {
         style={{ background: "transparent" }}
         gl={{ alpha: true, antialias: false }}
       >
-        <Particles faceTargets={faceTargets} />
+        <Particles faceTargets={faceTargets} isMobile={isMobile} />
       </Canvas>
     </div>
   )

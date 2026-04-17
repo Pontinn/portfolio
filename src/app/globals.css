@@ -32,7 +32,7 @@
 }
 
 * {
-  scroll-behavior: smooth;
+  box-sizing: border-box;
 }
 
 button, a, [role="button"], label[for] {
