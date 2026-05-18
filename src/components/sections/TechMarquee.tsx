@@ -109,7 +109,7 @@ function MarqueeRow({ items, reverse = false, duration = 35 }: { items: Tech[]; 
 
 export default function TechMarquee() {
   return (
-    <section className="py-14 w-full overflow-x-hidden">
+    <section className="py-0 w-full overflow-x-hidden">
       <div
         className="py-8 overflow-x-hidden space-y-3 bg-[#101010]"
         style={{
