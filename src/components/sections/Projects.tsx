@@ -67,7 +67,7 @@ function RepoCard({ repo, noDesc }: { repo: GitHubRepo; noDesc: string }) {
       href={repo.html_url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group block"
+      className="group block h-full"
       style={{ opacity: 0 }}
     >
       <BorderGlow
@@ -76,8 +76,9 @@ function RepoCard({ repo, noDesc }: { repo: GitHubRepo; noDesc: string }) {
         glowColor="280 80 70"
         colors={["#892CDC", "#BC6FF1", "#52057B"]}
         edgeSensitivity={25}
+        className="h-full"
       >
-        <div className="p-4">
+        <div className="p-4 h-full flex flex-col">
           <div className="flex items-start justify-between mb-2">
             <span className="font-semibold text-sm text-[var(--text)] group-hover:text-[var(--purple-light)] transition-colors">
               {repo.name}
@@ -87,7 +88,7 @@ function RepoCard({ repo, noDesc }: { repo: GitHubRepo; noDesc: string }) {
           <p className="text-xs text-[var(--text)] opacity-55 mb-3 line-clamp-2 leading-relaxed">
             {repo.description || noDesc}
           </p>
-          <div className="flex items-center gap-3 text-xs text-[var(--text)] opacity-45">
+          <div className="flex items-center gap-3 text-xs text-[var(--text)] opacity-45 mt-auto">
             {repo.language && (
               <span className="flex items-center gap-1">
                 <span className="w-2 h-2 rounded-full bg-[var(--purple-mid)]" />

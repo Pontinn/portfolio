@@ -26,7 +26,7 @@ export const translations = {
       role: "Full Stack Developer · Backend Focus",
       bio: [
         "Comecei minha carreira criando sites e landing pages com WordPress, mas sempre soube que queria mais — estudei o ecossistema JavaScript em paralelo e fui migrando cada vez mais para o código puro. Meu sonho sempre foi o backend, e quando comecei a estudar Java foi onde me apaixonei de verdade.",
-        "Hoje sou desenvolvedor Full Stack com foco em backend, lidero o setor de TI da Mave Company e tenho sistemas reais rodando em produção — entre eles o KalyFit e o KobaFit, apps disponíveis na Play Store e Apple Store, onde atuei 100% no backend. Além disso, gerencio o desenvolvimento de uma plataforma completa de competições de churrasco com centenas de usuários ativos e crescendo.",
+        "Hoje sou desenvolvedor Full Stack com foco em backend, atuo como Head de TI da Mave Company e tenho sistemas reais rodando em produção — entre eles o KalyFit e o KobaFit, apps disponíveis na Play Store e Apple Store, onde atuei 100% no backend. Além disso, gerencio o desenvolvimento de uma plataforma completa de competições de churrasco com centenas de usuários ativos e crescendo.",
         "Atualmente busco ir além da entrega — me interessa entender tendências como IA e agentes, usar ferramentas que ampliem minha capacidade e continuar evoluindo como engenheiro.",
       ],
     },
@@ -47,7 +47,7 @@ export const translations = {
           role: "Head de TI · Full Stack Developer",
           period: "2024 — Presente",
           description:
-            "Entrei como desenvolvedor criando landing pages e sites institucionais. Migrei progressivamente para desenvolvimento com código puro e, em 2026, assumi a liderança do setor de TI. Hoje lidero o setor e entrego sistemas complexos em produção — incluindo a plataforma Pitmaster de competições de churrasco.",
+            "Entrei como desenvolvedor criando landing pages e sites institucionais. Migrei progressivamente para desenvolvimento com código puro e, em 2026, assumi a posição de Head de TI. Hoje sou o responsável pelo setor e entrego sistemas complexos em produção — incluindo a plataforma Pitmaster de competições de churrasco.",
         },
         {
           company: "Freelance",
@@ -123,7 +123,7 @@ export const translations = {
       role: "Full Stack Developer · Backend Focus",
       bio: [
         "I started my career building websites and landing pages with WordPress, but always knew I wanted more — I studied the JavaScript ecosystem in parallel and gradually moved toward writing real code. My dream was always backend, and when I started studying Java, that's where I truly fell in love with engineering.",
-        "Today I'm a Full Stack Developer focused on backend, leading the IT department at Mave Company with real systems running in production — including KalyFit and KobaFit, apps available on the Play Store and Apple Store, where I worked 100% on the backend. I also manage the development of a full competition platform for the BBQ niche, with hundreds of active users and growing.",
+        "Today I'm a Full Stack Developer focused on backend, working as Head of IT at Mave Company with real systems running in production — including KalyFit and KobaFit, apps available on the Play Store and Apple Store, where I worked 100% on the backend. I also manage the development of a full competition platform for the BBQ niche, with hundreds of active users and growing.",
         "I'm always looking beyond delivery — I'm interested in trends like AI and agents, tools that expand my capabilities, and continuing to grow as an engineer.",
       ],
     },
@@ -144,7 +144,7 @@ export const translations = {
           role: "Head of IT · Full Stack Developer",
           period: "2024 — Present",
           description:
-            "Joined as a developer building landing pages and institutional websites. Progressively moved to writing pure code and, in 2026, took on the IT Lead role. Today I lead the department and deliver complex systems in production — including the Pitmaster BBQ competition platform.",
+            "Joined as a developer building landing pages and institutional websites. Progressively moved to writing pure code and, in 2026, took on the Head of IT position. Today I'm responsible for the department and deliver complex systems in production — including the Pitmaster BBQ competition platform.",
         },
         {
           company: "Freelance",

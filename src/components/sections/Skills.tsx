@@ -121,23 +121,24 @@ export default function Skills() {
           />
         </h2>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-8 items-stretch">
           {categories.map(({ key, label, icon, skills }) => (
-            <div key={key} className="skill-card opacity-0">
+            <div key={key} className="skill-card opacity-0 h-full">
               <BorderGlow
                 backgroundColor="var(--bg)"
                 borderRadius={16}
                 glowColor="280 80 70"
                 colors={["#892CDC", "#BC6FF1", "#52057B"]}
+                className="h-full"
               >
-                <div className="p-6">
+                <div className="p-6 h-full flex flex-col">
                   <div className="flex items-center gap-3 mb-6">
                     <div className="p-2 rounded-lg bg-[var(--purple-dark)]/15 border border-[var(--purple-dark)]/20">
                       {icon}
                     </div>
                     <h3 className="font-bold text-[var(--text)] text-lg">{label}</h3>
                   </div>
-                  <div className="space-y-4">
+                  <div className="space-y-4 flex-1">
                     {skills.map((skill, i) => (
                       <SkillBar key={skill.name} name={skill.name} level={skill.level} delay={i * 0.08} />
                     ))}
