@@ -7,6 +7,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useLang } from "@/lib/LangContext"
 import { getAge } from "@/lib/i18n"
 import { MapPin, Briefcase, Calendar } from "lucide-react"
+import BorderGlow from "@/components/ui/BorderGlow"
+import DecryptedText from "@/components/ui/DecryptedText"
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger)
@@ -63,25 +65,43 @@ export default function About() {
     <section id="about" ref={sectionRef} className="py-16 md:py-24 px-6">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">
-          <span className="text-[var(--purple-light)]">{t.about.title}</span>
+          <DecryptedText
+            text={t.about.title}
+            animateOn="view"
+            sequential
+            revealDirection="start"
+            speed={120}
+            maxIterations={20}
+            className="text-[var(--purple-light)]"
+            encryptedClassName="text-[var(--purple-mid)] opacity-70"
+          />
         </h2>
 
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Image */}
           <div ref={imageRef} className="opacity-0 flex justify-center">
             <div className="relative">
-              <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-[var(--purple-dark)] to-[var(--purple-mid)] opacity-60 blur-sm" />
-              <div className="relative w-64 h-80 md:w-72 md:h-96 rounded-2xl overflow-hidden bg-[var(--bg-secondary)]">
-                <Image
-                  src="/imagem-profissional-sem-fundo-2.png"
-                  alt="Leonardo Pontin"
-                  fill
-                  sizes="(max-width: 768px) 256px, 288px"
-                  className="object-cover object-top"
-                  priority
-                />
-              </div>
-              <div className="absolute -bottom-4 -right-4 bg-[var(--purple-mid)] text-white text-sm font-semibold px-4 py-2 rounded-xl shadow-lg">
+              <BorderGlow
+                backgroundColor="var(--bg-secondary)"
+                borderRadius={16}
+                glowColor="280 90 75"
+                colors={["#892CDC", "#BC6FF1", "#52057B"]}
+                glowIntensity={1.2}
+                edgeSensitivity={20}
+                glowRadius={50}
+              >
+                <div className="relative w-64 h-80 md:w-72 md:h-96 overflow-hidden rounded-2xl">
+                  <Image
+                    src="/imagem-profissional-sem-fundo-2.png"
+                    alt="Leonardo Pontin"
+                    fill
+                    sizes="(max-width: 768px) 256px, 288px"
+                    className="object-cover object-top"
+                    priority
+                  />
+                </div>
+              </BorderGlow>
+              <div className="absolute -bottom-4 -right-4 bg-[var(--purple-mid)] text-white text-sm font-semibold px-4 py-2 rounded-xl shadow-lg z-10">
                 {age} {t.about.age}
               </div>
             </div>

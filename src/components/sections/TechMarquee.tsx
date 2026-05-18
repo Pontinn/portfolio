@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect, useState } from "react"
 import { motion } from "framer-motion"
+import BorderGlow from "@/components/ui/BorderGlow"
 import {
   SiSpringboot, SiSpringsecurity, SiPostgresql, SiDocker,
   SiStripe, SiReact, SiNextdotjs,
@@ -89,11 +90,20 @@ function MarqueeRow({ items, reverse = false, duration = 35 }: { items: Tech[]; 
 
 export default function TechMarquee() {
   return (
-    <section className="py-14 overflow-hidden">
-      <div className="space-y-3">
-        <MarqueeRow items={row1} duration={40} />
-        <MarqueeRow items={row2} reverse duration={35} />
-      </div>
+    <section className="py-14 w-full overflow-x-hidden">
+      <BorderGlow
+        backgroundColor="#101010"
+        borderRadius={0}
+        glowColor="280 80 70"
+        colors={["#892CDC", "#BC6FF1", "#52057B"]}
+        edgeSensitivity={20}
+        className="no-side-borders marquee-glow"
+      >
+        <div className="py-8 overflow-x-hidden space-y-3">
+          <MarqueeRow items={row1} duration={40} />
+          <MarqueeRow items={row2} reverse duration={35} />
+        </div>
+      </BorderGlow>
     </section>
   )
 }

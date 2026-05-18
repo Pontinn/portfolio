@@ -6,6 +6,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useLang } from "@/lib/LangContext"
 import { ExternalLink, Star, Lock, GitBranch, Users, CreditCard, Database, Activity } from "lucide-react"
 import { AnimatedCounter } from "@/components/ui/Counter"
+import BorderGlow from "@/components/ui/BorderGlow"
+import DecryptedText from "@/components/ui/DecryptedText"
 
 function GithubIcon({ size = 18 }: { size?: number }) {
   return (
@@ -65,32 +67,42 @@ function RepoCard({ repo, noDesc }: { repo: GitHubRepo; noDesc: string }) {
       href={repo.html_url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group block rounded-xl border border-[var(--purple-dark)]/20 bg-[var(--bg)] p-4 hover:border-[var(--purple-mid)]/40 transition-all duration-300 hover:shadow-md hover:shadow-[var(--purple-dark)]/10"
+      className="group block"
       style={{ opacity: 0 }}
     >
-      <div className="flex items-start justify-between mb-2">
-        <span className="font-semibold text-sm text-[var(--text)] group-hover:text-[var(--purple-light)] transition-colors">
-          {repo.name}
-        </span>
-        <ExternalLink size={13} className="text-[var(--text)] opacity-30 group-hover:opacity-70 mt-0.5 flex-shrink-0" />
-      </div>
-      <p className="text-xs text-[var(--text)] opacity-55 mb-3 line-clamp-2 leading-relaxed">
-        {repo.description || noDesc}
-      </p>
-      <div className="flex items-center gap-3 text-xs text-[var(--text)] opacity-45">
-        {repo.language && (
-          <span className="flex items-center gap-1">
-            <span className="w-2 h-2 rounded-full bg-[var(--purple-mid)]" />
-            {repo.language}
-          </span>
-        )}
-        {repo.stargazers_count > 0 && (
-          <span className="flex items-center gap-1">
-            <Star size={11} />
-            {repo.stargazers_count}
-          </span>
-        )}
-      </div>
+      <BorderGlow
+        backgroundColor="var(--bg)"
+        borderRadius={12}
+        glowColor="280 80 70"
+        colors={["#892CDC", "#BC6FF1", "#52057B"]}
+        edgeSensitivity={25}
+      >
+        <div className="p-4">
+          <div className="flex items-start justify-between mb-2">
+            <span className="font-semibold text-sm text-[var(--text)] group-hover:text-[var(--purple-light)] transition-colors">
+              {repo.name}
+            </span>
+            <ExternalLink size={13} className="text-[var(--text)] opacity-30 group-hover:opacity-70 mt-0.5 flex-shrink-0" />
+          </div>
+          <p className="text-xs text-[var(--text)] opacity-55 mb-3 line-clamp-2 leading-relaxed">
+            {repo.description || noDesc}
+          </p>
+          <div className="flex items-center gap-3 text-xs text-[var(--text)] opacity-45">
+            {repo.language && (
+              <span className="flex items-center gap-1">
+                <span className="w-2 h-2 rounded-full bg-[var(--purple-mid)]" />
+                {repo.language}
+              </span>
+            )}
+            {repo.stargazers_count > 0 && (
+              <span className="flex items-center gap-1">
+                <Star size={11} />
+                {repo.stargazers_count}
+              </span>
+            )}
+          </div>
+        </div>
+      </BorderGlow>
     </a>
   )
 }
@@ -134,11 +146,29 @@ export default function Projects() {
     <section id="projects" ref={sectionRef} className="py-24 px-6 bg-[var(--bg-secondary)]/20">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">
-          <span className="text-[var(--purple-light)]">{t.projects.title}</span>
+          <DecryptedText
+            text={t.projects.title}
+            animateOn="view"
+            sequential
+            revealDirection="start"
+            speed={120}
+            maxIterations={20}
+            className="text-[var(--purple-light)]"
+            encryptedClassName="text-[var(--purple-mid)] opacity-70"
+          />
         </h2>
 
         {/* Pitmaster — destaque */}
-        <div className="proj-card opacity-0 mb-10 group relative rounded-3xl border border-[var(--purple-mid)]/40 bg-gradient-to-br from-[var(--bg)] via-[var(--bg)] to-[var(--purple-dark)]/10 p-6 md:p-8 hover:border-[var(--purple-mid)]/70 transition-all duration-500 hover:shadow-xl hover:shadow-[var(--purple-dark)]/20">
+        <div className="proj-card opacity-0 mb-10">
+        <BorderGlow
+          backgroundColor="#0a0a0a"
+          borderRadius={24}
+          glowColor="280 90 75"
+          colors={["#892CDC", "#BC6FF1", "#52057B"]}
+          glowIntensity={1.2}
+          edgeSensitivity={20}
+        >
+        <div className="group relative p-6 md:p-8">
           <div className="absolute top-4 right-4 flex gap-2">
             <span className="flex items-center gap-1 text-xs font-semibold bg-green-500/15 text-green-400 border border-green-500/30 px-3 py-1 rounded-full">
               <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
@@ -174,11 +204,21 @@ export default function Projects() {
                   { label: "Migrations", value: <AnimatedCounter target={57} suffix="+" fontSize={20} />, icon: <Database size={14} /> },
                   { label: "Status", value: <span className="text-xl font-bold text-[var(--purple-light)]">Live</span>, icon: <Activity size={14} /> },
                 ].map((stat, i) => (
-                  <div key={i} className="bg-[var(--bg)]/60 border border-[var(--purple-dark)]/20 rounded-xl p-3 text-center">
-                    <div className="flex justify-center mb-1 text-[var(--purple-mid)] opacity-70">{stat.icon}</div>
-                    <div className="flex justify-center items-center">{stat.value}</div>
-                    <div className="text-xs text-[var(--text)] opacity-50">{stat.label}</div>
-                  </div>
+                  <BorderGlow
+                    key={i}
+                    backgroundColor="#0a0a0a"
+                    borderRadius={12}
+                    glowColor="280 80 70"
+                    colors={["#892CDC", "#BC6FF1", "#52057B"]}
+                    edgeSensitivity={25}
+                    glowRadius={20}
+                  >
+                    <div className="p-3 text-center">
+                      <div className="flex justify-center mb-1 text-[var(--purple-mid)] opacity-70">{stat.icon}</div>
+                      <div className="flex justify-center items-center">{stat.value}</div>
+                      <div className="text-xs text-[var(--text)] opacity-50">{stat.label}</div>
+                    </div>
+                  </BorderGlow>
                 ))}
               </div>
               <div className="flex flex-wrap gap-2">
@@ -186,6 +226,8 @@ export default function Projects() {
               </div>
             </div>
           </div>
+        </div>
+        </BorderGlow>
         </div>
 
         {/* KalyFit + KobaFit */}
@@ -208,26 +250,32 @@ export default function Projects() {
               badgeColor: "bg-green-500/15 text-green-400 border-green-500/30",
             },
           ].map((proj) => (
-            <div
-              key={proj.title}
-              className="proj-card opacity-0 relative rounded-2xl border border-[var(--purple-dark)]/25 bg-[var(--bg)] p-6 hover:border-[var(--purple-mid)]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[var(--purple-dark)]/15"
-            >
-              <div className="absolute top-4 right-4">
-                <span className={`text-xs font-semibold border px-2.5 py-1 rounded-full ${proj.badgeColor}`}>
-                  {proj.badge}
-                </span>
-              </div>
+            <div key={proj.title} className="proj-card opacity-0">
+              <BorderGlow
+                backgroundColor="var(--bg)"
+                borderRadius={16}
+                glowColor="280 80 70"
+                colors={["#892CDC", "#BC6FF1", "#52057B"]}
+              >
+                <div className="relative p-6">
+                  <div className="absolute top-4 right-4">
+                    <span className={`text-xs font-semibold border px-2.5 py-1 rounded-full ${proj.badgeColor}`}>
+                      {proj.badge}
+                    </span>
+                  </div>
 
-              <h3 className="text-xl font-bold text-[var(--text)] mb-1 pr-20 md:pr-28">{proj.title}</h3>
-              <p className="text-[var(--purple-mid)] text-sm font-medium mb-3">{proj.subtitle}</p>
-              <p className="text-xs text-[var(--text)] opacity-65 leading-relaxed mb-4">{proj.description}</p>
-              <div className="flex flex-wrap gap-1.5 mb-3">
-                {proj.stack.map((s) => <Badge key={s} text={s} />)}
-              </div>
-              <div className="flex items-center gap-1 text-xs text-[var(--text)] opacity-40">
-                <Lock size={11} />
-                {t.projects.privateRepo}
-              </div>
+                  <h3 className="text-xl font-bold text-[var(--text)] mb-1 pr-20 md:pr-28">{proj.title}</h3>
+                  <p className="text-[var(--purple-mid)] text-sm font-medium mb-3">{proj.subtitle}</p>
+                  <p className="text-xs text-[var(--text)] opacity-65 leading-relaxed mb-4">{proj.description}</p>
+                  <div className="flex flex-wrap gap-1.5 mb-3">
+                    {proj.stack.map((s) => <Badge key={s} text={s} />)}
+                  </div>
+                  <div className="flex items-center gap-1 text-xs text-[var(--text)] opacity-40">
+                    <Lock size={11} />
+                    {t.projects.privateRepo}
+                  </div>
+                </div>
+              </BorderGlow>
             </div>
           ))}
         </div>

@@ -5,6 +5,8 @@ import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useLang } from "@/lib/LangContext"
 import { Server, Monitor, Cloud } from "lucide-react"
+import BorderGlow from "@/components/ui/BorderGlow"
+import DecryptedText from "@/components/ui/DecryptedText"
 
 const skillsData = {
   backend: [
@@ -107,26 +109,41 @@ export default function Skills() {
     <section id="skills" ref={sectionRef} className="py-24 px-6 bg-[var(--bg-secondary)]/30">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">
-          <span className="text-[var(--purple-light)]">{t.skills.title}</span>
+          <DecryptedText
+            text={t.skills.title}
+            animateOn="view"
+            sequential
+            revealDirection="start"
+            speed={120}
+            maxIterations={20}
+            className="text-[var(--purple-light)]"
+            encryptedClassName="text-[var(--purple-mid)] opacity-70"
+          />
         </h2>
 
         <div className="grid md:grid-cols-3 gap-8">
           {categories.map(({ key, label, icon, skills }) => (
-            <div
-              key={key}
-              className="skill-card opacity-0 bg-[var(--bg)] border border-[var(--purple-dark)]/20 rounded-2xl p-6 hover:border-[var(--purple-mid)]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[var(--purple-dark)]/10"
-            >
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 rounded-lg bg-[var(--purple-dark)]/15 border border-[var(--purple-dark)]/20">
-                  {icon}
+            <div key={key} className="skill-card opacity-0">
+              <BorderGlow
+                backgroundColor="var(--bg)"
+                borderRadius={16}
+                glowColor="280 80 70"
+                colors={["#892CDC", "#BC6FF1", "#52057B"]}
+              >
+                <div className="p-6">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="p-2 rounded-lg bg-[var(--purple-dark)]/15 border border-[var(--purple-dark)]/20">
+                      {icon}
+                    </div>
+                    <h3 className="font-bold text-[var(--text)] text-lg">{label}</h3>
+                  </div>
+                  <div className="space-y-4">
+                    {skills.map((skill, i) => (
+                      <SkillBar key={skill.name} name={skill.name} level={skill.level} delay={i * 0.08} />
+                    ))}
+                  </div>
                 </div>
-                <h3 className="font-bold text-[var(--text)] text-lg">{label}</h3>
-              </div>
-              <div className="space-y-4">
-                {skills.map((skill, i) => (
-                  <SkillBar key={skill.name} name={skill.name} level={skill.level} delay={i * 0.08} />
-                ))}
-              </div>
+              </BorderGlow>
             </div>
           ))}
         </div>

@@ -5,6 +5,7 @@ import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useLang } from "@/lib/LangContext"
 import { Mail } from "lucide-react"
+import DecryptedText from "@/components/ui/DecryptedText"
 
 function LinkedinIcon({ size = 18 }: { size?: number }) {
   return (
@@ -81,7 +82,16 @@ export default function Contact() {
     <section id="contact" ref={sectionRef} className="py-24 px-6">
       <div className="max-w-3xl mx-auto text-center">
         <h2 className="contact-item opacity-0 text-3xl md:text-4xl font-bold mb-4">
-          <span className="text-[var(--purple-light)]">{t.contact.title}</span>
+          <DecryptedText
+            text={t.contact.title}
+            animateOn="view"
+            sequential
+            revealDirection="start"
+            speed={120}
+            maxIterations={20}
+            className="text-[var(--purple-light)]"
+            encryptedClassName="text-[var(--purple-mid)] opacity-70"
+          />
         </h2>
         <p className="contact-item opacity-0 text-xl md:text-2xl font-light text-[var(--text)] opacity-80 mb-3">
           {t.contact.subtitle}
