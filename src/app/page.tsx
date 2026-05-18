@@ -1,14 +1,14 @@
-import Navbar from "@/components/ui/Navbar"
-import Hero from "@/components/sections/Hero"
-import TechMarquee from "@/components/sections/TechMarquee"
-import About from "@/components/sections/About"
-import Skills from "@/components/sections/Skills"
-import Experience from "@/components/sections/Experience"
-import Projects from "@/components/sections/Projects"
-import Contact from "@/components/sections/Contact"
-import ParticleField from "@/components/ui/ParticleFieldWrapper"
-import HardwareNotice from "@/components/ui/HardwareNotice"
-import SmoothScroll from "@/components/ui/SmoothScroll"
+import Navbar from "@/components/ui/Navbar";
+import Hero from "@/components/sections/Hero";
+import TechMarquee from "@/components/sections/TechMarquee";
+import About from "@/components/sections/About";
+import Skills from "@/components/sections/Skills";
+import Experience from "@/components/sections/Experience";
+import Projects from "@/components/sections/Projects";
+import Contact from "@/components/sections/Contact";
+import ParticleField from "@/components/ui/ParticleFieldWrapper";
+import HardwareNotice from "@/components/ui/HardwareNotice";
+import SmoothScroll from "@/components/ui/SmoothScroll";
 
 export default function Home() {
   return (
@@ -18,14 +18,14 @@ export default function Home() {
       <Navbar />
       <main className="relative" style={{ zIndex: 1 }}>
         <Hero />
-        <TechMarquee />
         <About />
         <Skills />
+        <TechMarquee />
         <Experience />
         <Projects />
         <Contact />
       </main>
       <HardwareNotice />
     </>
-  )
+  );
 }
