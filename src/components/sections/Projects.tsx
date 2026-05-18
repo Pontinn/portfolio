@@ -5,6 +5,7 @@ import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useLang } from "@/lib/LangContext"
 import { ExternalLink, Star, Lock, GitBranch, Users, CreditCard, Database, Activity } from "lucide-react"
+import { AnimatedCounter } from "@/components/ui/Counter"
 
 function GithubIcon({ size = 18 }: { size?: number }) {
   return (
@@ -168,14 +169,14 @@ export default function Projects() {
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-3">
                 {[
-                  { label: "Usuários", value: "100+", icon: <Users size={14} /> },
-                  { label: "Gateways", value: "2", icon: <CreditCard size={14} /> },
-                  { label: "Migrations", value: "57+", icon: <Database size={14} /> },
-                  { label: "Status", value: "Live", icon: <Activity size={14} /> },
-                ].map((stat) => (
-                  <div key={stat.label} className="bg-[var(--bg)]/60 border border-[var(--purple-dark)]/20 rounded-xl p-3 text-center">
+                  { label: "Usuários", value: <AnimatedCounter target={100} suffix="+" fontSize={20} />, icon: <Users size={14} /> },
+                  { label: "Gateways", value: <AnimatedCounter target={2} fontSize={20} />, icon: <CreditCard size={14} /> },
+                  { label: "Migrations", value: <AnimatedCounter target={57} suffix="+" fontSize={20} />, icon: <Database size={14} /> },
+                  { label: "Status", value: <span className="text-xl font-bold text-[var(--purple-light)]">Live</span>, icon: <Activity size={14} /> },
+                ].map((stat, i) => (
+                  <div key={i} className="bg-[var(--bg)]/60 border border-[var(--purple-dark)]/20 rounded-xl p-3 text-center">
                     <div className="flex justify-center mb-1 text-[var(--purple-mid)] opacity-70">{stat.icon}</div>
-                    <div className="text-xl font-bold text-[var(--purple-light)]">{stat.value}</div>
+                    <div className="flex justify-center items-center">{stat.value}</div>
                     <div className="text-xs text-[var(--text)] opacity-50">{stat.label}</div>
                   </div>
                 ))}
