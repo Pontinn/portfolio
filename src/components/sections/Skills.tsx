@@ -10,6 +10,7 @@ const skillsData = {
   backend: [
     { name: "Java", level: 95 },
     { name: "Spring Boot", level: 92 },
+    { name: "Spring Security", level: 88 },
     { name: "PostgreSQL", level: 88 },
     { name: "REST APIs", level: 93 },
     { name: "JWT / Auth", level: 90 },
@@ -25,7 +26,8 @@ const skillsData = {
   cloud: [
     { name: "AWS S3", level: 80 },
     { name: "Docker", level: 85 },
-    { name: "CI/CD", level: 75 },
+    { name: "GitHub Actions", level: 78 },
+    { name: "Nginx", level: 75 },
     { name: "Stripe", level: 88 },
     { name: "MercadoPago", level: 82 },
   ],

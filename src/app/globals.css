@@ -29,6 +29,8 @@
   --font-mono: var(--font-geist-mono);
   --animate-blink: blink 1s step-end infinite;
   --animate-fade-in: fade-in 0.4s ease forwards;
+  --animate-marquee: marquee 35s linear infinite;
+  --animate-marquee-reverse: marquee-reverse 35s linear infinite;
 }
 
 * {
@@ -70,4 +72,14 @@ body {
 @keyframes fade-in {
   from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-25%); }
+}
+
+@keyframes marquee-reverse {
+  0%   { transform: translateX(-25%); }
+  100% { transform: translateX(0); }
 }

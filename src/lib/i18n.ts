@@ -44,7 +44,7 @@ export const translations = {
       items: [
         {
           company: "Mave Company",
-          role: "Líder de TI · Full Stack Developer",
+          role: "Head de TI · Full Stack Developer",
           period: "2024 — Presente",
           description:
             "Entrei como desenvolvedor criando landing pages e sites institucionais. Migrei progressivamente para desenvolvimento com código puro e, em 2026, assumi a liderança do setor de TI. Hoje lidero o setor e entrego sistemas complexos em produção — incluindo a plataforma Pitmaster de competições de churrasco.",
@@ -68,7 +68,7 @@ export const translations = {
         title: "Pitmaster",
         subtitle: "Plataforma de Competições de Churrasco",
         description:
-          "A Pitmaster é uma plataforma completa de gerenciamento de competições de churrasco — um nicho específico e apaixonante. Faço parte do projeto desde o início e, com o crescimento do sistema, assumi a liderança do desenvolvimento backend. Construí toda a arquitetura com Java, Spring Boot e PostgreSQL: cadastro de usuários e times com transferência de liderança, inscrição em competições com pagamento via Stripe e MercadoPago, sistema de juízes com fluxo de solicitação e aprovação, avaliação de proteínas por sabor, aparência e textura com ranking automático, uploads de mídia na AWS S3 e painel administrativo completo com relatórios de usuários, times e desempenho financeiro. O sistema está no ar, faturando e com centenas de usuários ativos — e continua crescendo.",
+          "A Pitmaster é uma plataforma completa de gerenciamento de competições de churrasco. Construí toda a arquitetura backend com Java 17, Spring Boot 3, Spring Security e PostgreSQL: cadastro de usuários e times com transferência de liderança, inscrição em competições com pagamento via Stripe e MercadoPago (incluindo webhooks), sistema de juízes com fluxo de solicitação e aprovação, avaliação de proteínas por sabor, aparência e textura com ranking automático, uploads de mídia na AWS S3, rate limiting com Bucket4j, migrações com Flyway e painel administrativo completo com relatórios financeiros. O sistema conta com testes automatizados com JUnit e TestContainers. O frontend é React + TypeScript com Vite, hospedado via Nginx. CI/CD com GitHub Actions e deploy containerizado com Docker. O sistema está no ar, faturando e com centenas de usuários ativos.",
       },
       kalyfit: {
         title: "KalyFit",
@@ -141,7 +141,7 @@ export const translations = {
       items: [
         {
           company: "Mave Company",
-          role: "IT Lead · Full Stack Developer",
+          role: "Head of IT · Full Stack Developer",
           period: "2024 — Present",
           description:
             "Joined as a developer building landing pages and institutional websites. Progressively moved to writing pure code and, in 2026, took on the IT Lead role. Today I lead the department and deliver complex systems in production — including the Pitmaster BBQ competition platform.",
@@ -165,7 +165,7 @@ export const translations = {
         title: "Pitmaster",
         subtitle: "BBQ Competition Platform",
         description:
-          "Pitmaster is a full-featured platform for managing BBQ competitions — a specific and passionate niche. I've been part of the project from day one and, as the system grew, took on the lead of backend development. I built the entire architecture with Java, Spring Boot and PostgreSQL: user and team registration with leadership transfer, competition enrollment with payments via Stripe and MercadoPago, a judge system with request and approval flow, protein scoring by flavor, appearance and texture with automatic ranking, media uploads on AWS S3, and a full admin panel with user, team and financial reports. The system is live, generating revenue, and serving hundreds of active users — and keeps growing.",
+          "Pitmaster is a full-featured BBQ competition management platform. I built the entire backend architecture using Java 17, Spring Boot 3, Spring Security, and PostgreSQL: user and team registration with leadership transfer, competition enrollment with Stripe and MercadoPago payments (including webhooks), a judge system with request and approval flow, protein scoring by flavor, appearance and texture with automatic ranking, AWS S3 media uploads, rate limiting via Bucket4j, Flyway migrations, and a complete admin panel with financial reports. The system includes automated tests with JUnit and TestContainers. The frontend is React + TypeScript with Vite, served via Nginx. CI/CD via GitHub Actions with Dockerized deployment. The system is live, generating revenue, and serving hundreds of active users.",
       },
       kalyfit: {
         title: "KalyFit",

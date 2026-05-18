@@ -1,5 +1,6 @@
 import Navbar from "@/components/ui/Navbar"
 import Hero from "@/components/sections/Hero"
+import TechMarquee from "@/components/sections/TechMarquee"
 import About from "@/components/sections/About"
 import Skills from "@/components/sections/Skills"
 import Experience from "@/components/sections/Experience"
@@ -17,6 +18,7 @@ export default function Home() {
       <Navbar />
       <main className="relative" style={{ zIndex: 1 }}>
         <Hero />
+        <TechMarquee />
         <About />
         <Skills />
         <Experience />
