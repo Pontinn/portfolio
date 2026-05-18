@@ -7,6 +7,7 @@ import { useLang } from "@/lib/LangContext"
 import { Mail } from "lucide-react"
 import DecryptedText from "@/components/ui/DecryptedText"
 import BorderGlow from "@/components/ui/BorderGlow"
+import DotField from "@/components/ui/DotField"
 
 function LinkedinIcon({ size = 18 }: { size?: number }) {
   return (
@@ -80,8 +81,24 @@ export default function Contact() {
   }, [])
 
   return (
-    <section id="contact" ref={sectionRef} className="py-24 px-6">
-      <div className="max-w-3xl mx-auto text-center">
+    <section id="contact" ref={sectionRef} className="relative py-24 px-6 overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <DotField
+          dotRadius={1.5}
+          dotSpacing={14}
+          cursorRadius={500}
+          cursorForce={0.1}
+          bulgeOnly
+          bulgeStrength={67}
+          glowRadius={160}
+          sparkle={false}
+          waveAmplitude={0}
+          gradientFrom="rgba(168, 85, 247, 0.35)"
+          gradientTo="rgba(180, 151, 207, 0.25)"
+          glowColor="#120F17"
+        />
+      </div>
+      <div className="relative max-w-3xl mx-auto text-center">
         <h2 className="contact-item opacity-0 text-3xl md:text-4xl font-bold mb-4">
           <DecryptedText
             text={t.contact.title}
@@ -101,7 +118,7 @@ export default function Contact() {
           {t.contact.description}
         </p>
 
-        <div className="space-y-4">
+        <div className="space-y-4 max-w-md mx-auto">
           {links.map(({ key, icon: Icon, href, display }) => (
             <div key={key} className="contact-item opacity-0">
               <BorderGlow
