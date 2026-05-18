@@ -6,6 +6,7 @@ import { TextPlugin } from "gsap/TextPlugin"
 import { ArrowDown, Mail } from "lucide-react"
 import { useLang } from "@/lib/LangContext"
 import { typingSignal } from "@/lib/typingSignal"
+import BorderGlow from "@/components/ui/BorderGlow"
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(TextPlugin)
@@ -126,8 +127,8 @@ export default function Hero() {
     }
   }, [mounted, t.hero.titles])
 
-  function scrollToProjects() {
-    document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
+  function scrollToContact() {
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
   }
 
   return (
@@ -161,12 +162,25 @@ export default function Hero() {
         </div>
 
         <div ref={ctaRef} className="opacity-0 flex flex-col items-center gap-4">
-          <button
-            onClick={scrollToProjects}
-            className="cursor-pointer px-8 py-3 bg-[var(--purple-mid)] hover:bg-[var(--purple-dark)] text-white font-medium rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[var(--purple-mid)]/30"
+          <BorderGlow
+            backgroundColor="transparent"
+            borderRadius={9999}
+            glowColor="280 90 75"
+            colors={["#BC6FF1", "#892CDC", "#52057B"]}
+            glowIntensity={1.4}
+            edgeSensitivity={15}
+            glowRadius={30}
           >
-            {t.hero.cta}
-          </button>
+            <button
+              onClick={scrollToContact}
+              className="cursor-pointer px-8 py-3 bg-gradient-to-r from-[var(--purple-light)] to-[var(--purple-mid)] text-white font-semibold rounded-full transition-all duration-300 hover:scale-105"
+              style={{
+                boxShadow: "0 0 25px rgba(188, 111, 241, 0.55), 0 0 50px rgba(137, 44, 220, 0.35), inset 0 0 15px rgba(255, 255, 255, 0.12)",
+              }}
+            >
+              {t.hero.cta}
+            </button>
+          </BorderGlow>
         </div>
       </div>
 

@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useLang } from "@/lib/LangContext"
 import { Mail } from "lucide-react"
 import DecryptedText from "@/components/ui/DecryptedText"
+import BorderGlow from "@/components/ui/BorderGlow"
 
 function LinkedinIcon({ size = 18 }: { size?: number }) {
   return (
@@ -101,31 +102,45 @@ export default function Contact() {
         </p>
 
         <div className="space-y-4">
-          {links.map(({ key, icon: Icon, href, display, color }) => (
-            <a
-              key={key}
-              href={href}
-              target={key !== "email" ? "_blank" : undefined}
-              rel="noopener noreferrer"
-              className={`contact-item opacity-0 flex items-center justify-between gap-4 px-6 py-4 rounded-2xl border border-[var(--purple-dark)]/30 bg-[var(--bg-secondary)] hover:border-[var(--purple-mid)]/60 transition-all duration-300 group ${color}`}
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-xl bg-[var(--purple-dark)]/30 flex items-center justify-center group-hover:bg-[var(--purple-dark)]/50 transition-colors">
-                  <Icon size={18} className="text-[var(--purple-mid)] group-hover:text-[var(--purple-light)] transition-colors" />
-                </div>
-                <div className="text-left">
-                  <div className="text-xs text-[var(--text)] opacity-40 mb-0.5">
-                    {t.contact[key as keyof typeof t.contact] ?? key}
+          {links.map(({ key, icon: Icon, href, display }) => (
+            <div key={key} className="contact-item opacity-0">
+              <BorderGlow
+                backgroundColor="transparent"
+                borderRadius={16}
+                glowColor="280 90 75"
+                colors={["#BC6FF1", "#892CDC", "#52057B"]}
+                glowIntensity={1.3}
+                edgeSensitivity={20}
+                glowRadius={30}
+              >
+                <a
+                  href={href}
+                  target={key !== "email" ? "_blank" : undefined}
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between gap-4 px-6 py-4 rounded-2xl bg-gradient-to-r from-[var(--purple-light)] to-[var(--purple-mid)] transition-all duration-300 hover:scale-[1.01] group"
+                  style={{
+                    boxShadow: "0 0 25px rgba(188, 111, 241, 0.45), 0 0 50px rgba(137, 44, 220, 0.3), inset 0 0 15px rgba(255, 255, 255, 0.1)",
+                  }}
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center group-hover:bg-white/30 transition-colors">
+                      <Icon size={18} className="text-white" />
+                    </div>
+                    <div className="text-left">
+                      <div className="text-xs text-white/70 mb-0.5">
+                        {t.contact[key as keyof typeof t.contact] ?? key}
+                      </div>
+                      <div className="text-sm font-semibold text-white">
+                        {display}
+                      </div>
+                    </div>
                   </div>
-                  <div className="text-sm font-medium text-[var(--text)] group-hover:text-[var(--purple-light)] transition-colors">
-                    {display}
+                  <div className="text-white/70 group-hover:text-white group-hover:translate-x-1 transition-all">
+                    →
                   </div>
-                </div>
-              </div>
-              <div className="text-[var(--text)] opacity-30 group-hover:opacity-70 transition-opacity">
-                →
-              </div>
-            </a>
+                </a>
+              </BorderGlow>
+            </div>
           ))}
         </div>
       </div>

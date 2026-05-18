@@ -18,7 +18,7 @@ export const translations = {
         "Java · Spring Boot",
       ],
       contact: "leo@pontin.dev",
-      cta: "Ver projetos",
+      cta: "Entrar em contato",
     },
     about: {
       title: "Sobre mim",
@@ -115,7 +115,7 @@ export const translations = {
         "Java · Spring Boot",
       ],
       contact: "leo@pontin.dev",
-      cta: "View projects",
+      cta: "Get in touch",
     },
     about: {
       title: "About me",
