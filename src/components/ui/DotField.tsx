@@ -54,6 +54,7 @@ const DotField = memo(function DotField({
   const propsRef = useRef<DotFieldProps>({})
   propsRef.current = { dotRadius, dotSpacing, cursorRadius, cursorForce, bulgeOnly, bulgeStrength, sparkle, waveAmplitude, gradientFrom, gradientTo }
   const rebuildRef = useRef<(() => void) | null>(null)
+  const isVisibleRef = useRef(true)
   const reactId = useId()
   const glowId = `dot-field-glow-${reactId.replace(/[^a-zA-Z0-9]/g, "")}`
 
@@ -130,6 +131,10 @@ const DotField = memo(function DotField({
     let frameCount = 0
 
     function tick() {
+      if (!isVisibleRef.current) {
+        rafRef.current = requestAnimationFrame(tick)
+        return
+      }
       frameCount++
       const dots = dotsRef.current
       const m = mouseRef.current
@@ -225,6 +230,16 @@ const DotField = memo(function DotField({
     doResize()
     window.addEventListener("resize", resize)
     window.addEventListener("mousemove", onMouseMove, { passive: true })
+
+    const container = canvas.parentElement
+    const visibilityObserver = container
+      ? new IntersectionObserver(
+          ([entry]) => { isVisibleRef.current = entry.isIntersecting },
+          { threshold: 0 }
+        )
+      : null
+    if (visibilityObserver && container) visibilityObserver.observe(container)
+
     rafRef.current = requestAnimationFrame(tick)
 
     rebuildRef.current = () => {
@@ -238,6 +253,7 @@ const DotField = memo(function DotField({
       clearTimeout(resizeTimer)
       window.removeEventListener("resize", resize)
       window.removeEventListener("mousemove", onMouseMove)
+      visibilityObserver?.disconnect()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

@@ -45,7 +45,7 @@ const row2: Tech[] = [
 function TechBadge({ tech }: { tech: Tech }) {
   const Icon = tech.icon
   return (
-    <div className="flex items-center gap-2 px-4 py-2 rounded-xl border border-[var(--purple-dark)]/25 bg-[var(--bg-secondary)]/60 backdrop-blur-sm whitespace-nowrap select-none shrink-0 hover:border-[var(--purple-mid)]/50 transition-colors duration-300">
+    <div className="flex items-center gap-2 px-4 py-2 rounded-xl border border-[var(--purple-dark)]/25 bg-[var(--bg-secondary)] whitespace-nowrap select-none shrink-0">
       <Icon size={16} style={{ color: tech.color }} />
       <span className="text-sm font-medium text-[var(--text)]/80">{tech.name}</span>
     </div>
@@ -54,7 +54,9 @@ function TechBadge({ tech }: { tech: Tech }) {
 
 function MarqueeRow({ items, reverse = false, duration = 35 }: { items: Tech[]; reverse?: boolean; duration?: number }) {
   const trackRef = useRef<HTMLDivElement>(null)
+  const wrapperRef = useRef<HTMLDivElement>(null)
   const [copyWidth, setCopyWidth] = useState(0)
+  const [isInView, setIsInView] = useState(true)
   const quadrupled = [...items, ...items, ...items, ...items]
 
   useEffect(() => {
@@ -65,15 +67,27 @@ function MarqueeRow({ items, reverse = false, duration = 35 }: { items: Tech[]; 
     setCopyWidth(firstCopy2.offsetLeft)
   }, [items.length])
 
+  useEffect(() => {
+    if (!wrapperRef.current) return
+    const el = wrapperRef.current
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInView(entry.isIntersecting),
+      { threshold: 0 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   const animateKeys = reverse ? [-copyWidth, 0] : [0, -copyWidth]
+  const active = copyWidth > 0 && isInView
 
   return (
-    <div style={{ overflow: "hidden", width: "100%" }}>
+    <div ref={wrapperRef} style={{ overflow: "hidden", width: "100%" }}>
       <motion.div
         ref={trackRef}
-        style={{ display: "flex", width: "max-content" }}
-        animate={copyWidth > 0 ? { x: animateKeys } : {}}
-        transition={copyWidth > 0 ? {
+        style={{ display: "flex", width: "max-content", willChange: "transform" }}
+        animate={active ? { x: animateKeys } : {}}
+        transition={active ? {
           x: { duration, ease: "linear", repeat: Infinity, repeatType: "loop" },
         } : {}}
       >
