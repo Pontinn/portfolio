@@ -62,8 +62,17 @@ export default function About() {
   const age = getAge()
 
   return (
-    <section id="about" ref={sectionRef} className="py-16 md:py-24 px-6">
-      <div className="max-w-6xl mx-auto">
+    <section id="about" ref={sectionRef} className="relative py-16 md:py-24 px-6">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(188,111,241,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(188,111,241,0.04) 1px, transparent 1px)",
+          backgroundSize: "48px 48px",
+        }}
+      />
+      <div className="relative z-10 max-w-6xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">
           <DecryptedText
             text={t.about.title}
