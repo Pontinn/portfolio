@@ -6,7 +6,7 @@ import {
   SiSpringboot, SiSpringsecurity, SiPostgresql, SiDocker,
   SiStripe, SiReact, SiNextdotjs,
   SiTypescript, SiTailwindcss, SiNodedotjs, SiGit,
-  SiOpenai, SiNginx, SiGithubactions, SiThymeleaf,
+  SiJavascript, SiNginx, SiGithubactions,
   SiApachemaven, SiHibernate, SiMercadopago, SiJunit5,
 } from "react-icons/si"
 import { Database, Cloud, Coffee } from "lucide-react"
@@ -38,8 +38,7 @@ const row2: Tech[] = [
   { name: "GitHub Actions",  icon: SiGithubactions,  color: "#2088ff" },
   { name: "Stripe",          icon: SiStripe,         color: "#635bff" },
   { name: "MercadoPago",     icon: SiMercadopago,    color: "#009ee3" },
-  { name: "OpenAI API",      icon: SiOpenai,         color: "#74aa9c" },
-  { name: "Thymeleaf",       icon: SiThymeleaf,      color: "#005f0f" },
+  { name: "JavaScript",      icon: SiJavascript,     color: "#f7df1e" },
 ]
 
 function TechBadge({ tech }: { tech: Tech }) {
