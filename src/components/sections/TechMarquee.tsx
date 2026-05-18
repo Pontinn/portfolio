@@ -6,7 +6,7 @@ import {
   SiSpringboot, SiSpringsecurity, SiPostgresql, SiDocker,
   SiStripe, SiReact, SiNextdotjs,
   SiTypescript, SiTailwindcss, SiNodedotjs, SiGit,
-  SiJavascript, SiNginx, SiGithubactions,
+  SiJavascript, SiNginx, SiGithubactions, SiRabbitmq, SiN8N,
   SiApachemaven, SiHibernate, SiMercadopago, SiJunit5,
 } from "react-icons/si"
 import { Database, Cloud, Coffee } from "lucide-react"
@@ -26,6 +26,7 @@ const row1: Tech[] = [
   { name: "Nginx",           icon: SiNginx,          color: "#009639" },
   { name: "Maven",           icon: SiApachemaven,    color: "#c71a36" },
   { name: "JUnit 5",         icon: SiJunit5,         color: "#25a162" },
+  { name: "RabbitMQ",        icon: SiRabbitmq,       color: "#ff6600" },
 ]
 
 const row2: Tech[] = [
@@ -39,6 +40,7 @@ const row2: Tech[] = [
   { name: "Stripe",          icon: SiStripe,         color: "#635bff" },
   { name: "MercadoPago",     icon: SiMercadopago,    color: "#009ee3" },
   { name: "JavaScript",      icon: SiJavascript,     color: "#f7df1e" },
+  { name: "N8n",             icon: SiN8N,            color: "#ea4b71" },
 ]
 
 function TechBadge({ tech }: { tech: Tech }) {
