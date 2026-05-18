@@ -8,6 +8,7 @@ import {
   SiTypescript, SiTailwindcss, SiNodedotjs, SiGit,
   SiJavascript, SiNginx, SiGithubactions, SiRabbitmq, SiN8N,
   SiApachemaven, SiHibernate, SiMercadopago, SiJunit5,
+  SiVercel, SiFigma, SiHtml5, SiCss,
 } from "react-icons/si"
 import { Database, Cloud, Coffee } from "lucide-react"
 
@@ -40,6 +41,10 @@ const row2: Tech[] = [
   { name: "Stripe",          icon: SiStripe,         color: "#635bff" },
   { name: "MercadoPago",     icon: SiMercadopago,    color: "#009ee3" },
   { name: "JavaScript",      icon: SiJavascript,     color: "#f7df1e" },
+  { name: "HTML",            icon: SiHtml5,          color: "#e34f26" },
+  { name: "CSS",             icon: SiCss,            color: "#1572b6" },
+  { name: "Vercel",          icon: SiVercel,         color: "#ffffff" },
+  { name: "Figma",           icon: SiFigma,          color: "#f24e1e" },
   { name: "N8n",             icon: SiN8N,            color: "#ea4b71" },
 ]
 
