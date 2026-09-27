@@ -47,7 +47,7 @@ export const translations = {
           role: "Head de TI · Full Stack Developer",
           period: "2024 - Presente",
           description:
-            "Entrei como desenvolvedor criando landing pages e sites institucionais. Migrei progressivamente para desenvolvimento com código puro e, em 2026, assumi a posição de Head de TI. Hoje sou o responsável pelo setor e entrego sistemas complexos em produção, incluindo a plataforma Pitmaster de competições de churrasco.",
+            "Entrei como desenvolvedor criando landing pages e sites institucionais. Migrei progressivamente para desenvolvimento com código puro e, em 2026, assumi a posição de Head de TI. Hoje sou o responsável pelo setor e entrego sistemas complexos em produção, incluindo a plataforma Pitmasters Brasil de competições de churrasco.",
         },
         {
           company: "Freelance",
@@ -72,10 +72,10 @@ export const translations = {
       live: "AO VIVO",
       you: "você",
       pitmaster: {
-        title: "Pitmaster",
+        title: "Pitmasters Brasil",
         subtitle: "Plataforma de Competições de Churrasco",
         description:
-          "A Pitmaster é uma plataforma completa de competições de churrasco que eu construí do zero e mantenho em produção há mais de um ano. Backend em Java 17, Spring Boot 3, Spring Security e PostgreSQL, com mais de 110 migrations Flyway e quase 40 controllers REST. O núcleo é o motor de competições: inscrição de equipes com pagamento via Stripe e Mercado Pago (webhooks, estornos, cupons com escopo combinável e cálculo do valor líquido com a taxa real de cada gateway), avaliação às cegas com códigos anônimos, lotes de notas e trilha de auditoria, juízes oficiais e populares, e ranking automático. Em cima disso nasceram as Ligas anuais, com regras de pontuação configuráveis, bônus por categoria e ranking público, e uma loja oficial com catálogo flexível por variação, carrinho, checkout e controle de retirada presencial nos eventos. Na infraestrutura, implementei um Outbox de e-mails transacionais em PostgreSQL (retry, dead-letter e idempotência sem broker externo), jobs agendados de reconciliação e inativação automática de equipes, refresh token com versionamento, rate limiting com Bucket4j, soft delete e anonimização LGPD. Mais de 100 classes de teste com JUnit e TestContainers rodando no GitHub Actions, frontend em React + TypeScript com Vite e deploy containerizado com Docker e Nginx. O sistema está no ar, faturando e com centenas de usuários ativos.",
+          "A Pitmasters Brasil é uma plataforma completa de competições de churrasco que eu construí do zero e mantenho em produção há mais de um ano. Backend em Java 17, Spring Boot 3, Spring Security e PostgreSQL, com mais de 110 migrations Flyway e quase 40 controllers REST. O núcleo é o motor de competições: inscrição de equipes com pagamento via Stripe e Mercado Pago (webhooks, estornos, cupons com escopo combinável e cálculo do valor líquido com a taxa real de cada gateway), avaliação às cegas com códigos anônimos, lotes de notas e trilha de auditoria, juízes oficiais e populares, e ranking automático. Em cima disso nasceram as Ligas anuais, com regras de pontuação configuráveis, bônus por categoria e ranking público, e uma loja oficial com catálogo flexível por variação, carrinho, checkout e controle de retirada presencial nos eventos. Na infraestrutura, implementei um Outbox de e-mails transacionais em PostgreSQL (retry, dead-letter e idempotência sem broker externo), jobs agendados de reconciliação e inativação automática de equipes, refresh token com versionamento, rate limiting com Bucket4j, soft delete e anonimização LGPD. Mais de 100 classes de teste com JUnit e TestContainers rodando no GitHub Actions, frontend em React + TypeScript com Vite e deploy containerizado com Docker e Nginx. O sistema está no ar, faturando e com centenas de usuários ativos.",
       },
       zoi: {
         title: "Zói da Goiaba",
@@ -163,7 +163,7 @@ export const translations = {
           role: "Head of IT · Full Stack Developer",
           period: "2024 - Present",
           description:
-            "Joined as a developer building landing pages and institutional websites. Progressively moved to writing pure code and, in 2026, took on the Head of IT position. Today I'm responsible for the department and deliver complex systems in production, including the Pitmaster BBQ competition platform.",
+            "Joined as a developer building landing pages and institutional websites. Progressively moved to writing pure code and, in 2026, took on the Head of IT position. Today I'm responsible for the department and deliver complex systems in production, including the Pitmasters Brasil BBQ competition platform.",
         },
         {
           company: "Freelance",
@@ -188,10 +188,10 @@ export const translations = {
       live: "LIVE",
       you: "you",
       pitmaster: {
-        title: "Pitmaster",
+        title: "Pitmasters Brasil",
         subtitle: "BBQ Competition Platform",
         description:
-          "Pitmaster is a full-featured BBQ competition platform that I built from scratch and have kept in production for over a year. The backend runs on Java 17, Spring Boot 3, Spring Security and PostgreSQL, with 110+ Flyway migrations and nearly 40 REST controllers. At its core is the competition engine: team enrollment with Stripe and Mercado Pago payments (webhooks, refunds, combinable-scope coupons and net revenue calculated from each gateway's real fee), blind judging with anonymous codes, score batches and an audit trail, official and popular judges, and automatic ranking. On top of that came annual Leagues, with configurable scoring rules, category bonuses and a public ranking, plus an official store with a flexible variant catalog, cart, checkout and in-person pickup tracking at events. On the infrastructure side, I implemented a transactional email Outbox in PostgreSQL (retry, dead-letter and idempotency with no external broker), scheduled reconciliation and team auto-inactivation jobs, refresh tokens with versioning, Bucket4j rate limiting, soft delete and LGPD anonymization. Over 100 test classes with JUnit and TestContainers run on GitHub Actions, the frontend is React + TypeScript with Vite, and deployment is containerized with Docker and Nginx. The system is live, generating revenue, and serving hundreds of active users.",
+          "Pitmasters Brasil is a full-featured BBQ competition platform that I built from scratch and have kept in production for over a year. The backend runs on Java 17, Spring Boot 3, Spring Security and PostgreSQL, with 110+ Flyway migrations and nearly 40 REST controllers. At its core is the competition engine: team enrollment with Stripe and Mercado Pago payments (webhooks, refunds, combinable-scope coupons and net revenue calculated from each gateway's real fee), blind judging with anonymous codes, score batches and an audit trail, official and popular judges, and automatic ranking. On top of that came annual Leagues, with configurable scoring rules, category bonuses and a public ranking, plus an official store with a flexible variant catalog, cart, checkout and in-person pickup tracking at events. On the infrastructure side, I implemented a transactional email Outbox in PostgreSQL (retry, dead-letter and idempotency with no external broker), scheduled reconciliation and team auto-inactivation jobs, refresh tokens with versioning, Bucket4j rate limiting, soft delete and LGPD anonymization. Over 100 test classes with JUnit and TestContainers run on GitHub Actions, the frontend is React + TypeScript with Vite, and deployment is containerized with Docker and Nginx. The system is live, generating revenue, and serving hundreds of active users.",
       },
       zoi: {
         title: "Zói da Goiaba",

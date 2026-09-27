@@ -29,13 +29,13 @@ type GitHubRepo = {
 }
 
 const pitmasterStack = ["Java 17", "Spring Boot 3", "PostgreSQL", "Flyway", "Stripe", "Mercado Pago", "JWT", "AWS S3", "Docker", "GitHub Actions", "React", "TypeScript"]
-const zoiStack = ["Electron", "TypeScript", "React", "WebRTC", "PeerJS", "C++ Addon", "Zustand", "Vitest", "Playwright"]
+const zoiStack = ["Electron", "TypeScript", "React", "WebRTC", "PeerJS", "C++ Addon", "Zustand", "Vitest"]
 // Badges "Novo": somem sozinhas depois da data de cada uma (contadas a partir de 27/09/2026)
 const NOW = Date.now()
 const ZOI_IS_NEW = NOW < new Date("2026-10-27T23:59:59-03:00").getTime() // 1 mês
 const POKEDEX_IS_NEW = NOW < new Date("2026-11-27T23:59:59-03:00").getTime() // 2 meses
 
-const pokedexStack = ["React 19", "TypeScript", "Vite", "Zustand", "IndexedDB", "PWA", "Node", "Vitest", "Playwright"]
+const pokedexStack = ["React 19", "TypeScript", "Vite", "Zustand", "IndexedDB", "PWA", "Node", "Vitest"]
 const experioStack = ["NestJS", "TypeScript", "Prisma", "PostgreSQL", "Redis", "Stripe", "React", "Capacitor", "i18n"]
 const kobafitStack = ["Java 17", "Spring Boot", "PostgreSQL", "Multi-tenant", "Stripe", "OpenAI API", "Flyway", "JWT", "Docker"]
 
@@ -167,7 +167,7 @@ export default function Projects() {
           />
         </h2>
 
-        {/* Pitmaster: destaque */}
+        {/* Pitmasters Brasil: destaque */}
         <div className="proj-card opacity-0 mb-10">
         <BorderGlow
           backgroundColor="#0a0a0a"
