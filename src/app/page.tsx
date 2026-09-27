@@ -16,7 +16,7 @@ export default function Home() {
       <SmoothScroll />
       <ParticleField />
       <Navbar />
-      <main className="relative" style={{ zIndex: 1 }}>
+      <main className="relative overflow-x-clip" style={{ zIndex: 1 }}>
         <Hero />
         <About />
         <Skills />
