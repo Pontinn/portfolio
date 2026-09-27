@@ -4,10 +4,11 @@ import { useEffect, useRef, useState } from "react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useLang } from "@/lib/LangContext"
-import { ExternalLink, Star, Lock, GitBranch, Users, CreditCard, Database, GitCommit } from "lucide-react"
+import { ExternalLink, Star, Lock, GitBranch, Users, CreditCard, Database, GitCommit, Heart } from "lucide-react"
 import { AnimatedCounter } from "@/components/ui/Counter"
 import BorderGlow from "@/components/ui/BorderGlow"
 import DecryptedText from "@/components/ui/DecryptedText"
+import TransformCard from "@/components/projects/TransformCard"
 
 function GithubIcon({ size = 18 }: { size?: number }) {
   return (
@@ -38,9 +39,9 @@ const pokedexStack = ["React 19", "TypeScript", "Vite", "Zustand", "IndexedDB", 
 const experioStack = ["NestJS", "TypeScript", "Prisma", "PostgreSQL", "Redis", "Stripe", "React", "Capacitor", "i18n"]
 const kobafitStack = ["Java 17", "Spring Boot", "PostgreSQL", "Multi-tenant", "Stripe", "OpenAI API", "Flyway", "JWT", "Docker"]
 
-function Badge({ text }: { text: string }) {
+function Badge({ text, className = "" }: { text: string; className?: string }) {
   return (
-    <span className="px-2 py-0.5 text-xs bg-[var(--purple-dark)]/20 text-[var(--purple-light)] border border-[var(--purple-dark)]/30 rounded-md">
+    <span className={`${className} px-2 py-0.5 text-xs bg-[var(--purple-dark)]/20 text-[var(--purple-light)] border border-[var(--purple-dark)]/30 rounded-md`}>
       {text}
     </span>
   )
@@ -263,6 +264,8 @@ export default function Projects() {
               repoUrl: null,
               privateRepo: false,
               isNew: ZOI_IS_NEW,
+              personal: true,
+              variant: "zoi" as const,
             },
             {
               title: t.projects.pokedex.title,
@@ -275,6 +278,8 @@ export default function Projects() {
               repoUrl: "https://github.com/Pontinn/pokedex-atm",
               privateRepo: false,
               isNew: POKEDEX_IS_NEW,
+              personal: true,
+              variant: "pontindex" as const,
             },
             {
               title: t.projects.experio.title,
@@ -287,6 +292,8 @@ export default function Projects() {
               repoUrl: null,
               privateRepo: true,
               isNew: false,
+              personal: false,
+              variant: null,
             },
             {
               title: t.projects.kobafit.title,
@@ -299,41 +306,46 @@ export default function Projects() {
               repoUrl: null,
               privateRepo: true,
               isNew: false,
+              personal: false,
+              variant: null,
             },
-          ].map((proj) => (
-            <div key={proj.title} className="proj-card opacity-0 h-full">
-              <BorderGlow
-                className="h-full"
-                backgroundColor="var(--bg)"
-                borderRadius={16}
-                glowColor="280 80 70"
-                colors={["#892CDC", "#BC6FF1", "#52057B"]}
-              >
-                <div className="relative p-6 h-full flex flex-col">
-                  <div className="absolute top-4 right-4 flex items-center gap-2">
+          ].map((proj) => {
+            // Personal cards carry an extra pill on its own line, so the title keeps
+            // clearing the first line (Novo + status) and the subtitle clears the second one on mobile.
+            const body = (
+                <div className="tc-content relative p-6 h-full flex flex-col">
+                  <div className={`tc-badges absolute top-4 right-4 flex items-center gap-2${proj.personal ? " flex-wrap justify-end" : ""}`}>
                     {proj.isNew && (
-                      <span className="flex items-center gap-1 text-xs font-bold text-white px-2.5 py-1 rounded-full bg-gradient-to-r from-[var(--purple-light)] to-[var(--purple-mid)] shadow-[0_0_12px_rgba(188,111,241,0.5)]">
-                        <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                      <span className="tc-pill tc-pill-new flex items-center gap-1 text-xs font-bold text-white px-2.5 py-1 rounded-full bg-gradient-to-r from-[var(--purple-light)] to-[var(--purple-mid)] shadow-[0_0_12px_rgba(188,111,241,0.5)]">
+                        <span className="tc-pill-dot w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                         {t.projects.newBadge}
                       </span>
                     )}
-                    <span className={`text-xs font-semibold border px-2.5 py-1 rounded-full ${proj.badgeColor}`}>
+                    <span className={`tc-pill tc-pill-status text-xs font-semibold border px-2.5 py-1 rounded-full ${proj.badgeColor}`}>
                       {proj.badge}
                     </span>
+                    {proj.personal && (
+                      <span className="basis-full flex justify-end">
+                        <span className="tc-pill tc-pill-personal flex items-center gap-1 text-xs font-semibold border px-2.5 py-1 rounded-full bg-[var(--purple-dark)]/20 text-[var(--purple-light)] border-[var(--purple-dark)]/40">
+                          <Heart size={11} />
+                          {t.projects.personalProject}
+                        </span>
+                      </span>
+                    )}
                   </div>
 
-                  <h3 className={`text-xl font-bold text-[var(--text)] mb-1 ${proj.isNew ? "pr-36 md:pr-44" : "pr-20 md:pr-28"}`}>{proj.title}</h3>
-                  <p className="text-[var(--purple-mid)] text-sm font-medium mb-3">{proj.subtitle}</p>
-                  <p className="text-xs text-[var(--text)] opacity-65 leading-relaxed mb-4 flex-1">{proj.description}</p>
+                  <h3 className={`tc-title text-xl font-bold text-[var(--text)] mb-1 ${proj.personal ? "pr-44" : proj.isNew ? "pr-36 md:pr-44" : "pr-20 md:pr-28"}`}>{proj.title}</h3>
+                  <p className={`tc-subtitle text-[var(--purple-mid)] text-sm font-medium mb-3${proj.personal ? " pr-36 xl:pr-0" : ""}`}>{proj.subtitle}</p>
+                  <p className="tc-desc text-xs text-[var(--text)] opacity-65 leading-relaxed mb-4 flex-1">{proj.description}</p>
                   <div className="flex flex-wrap gap-1.5 mb-3">
-                    {proj.stack.map((s) => <Badge key={s} text={s} />)}
+                    {proj.stack.map((s) => <Badge key={s} text={s} className="tc-tag" />)}
                   </div>
                   <div className="flex items-center justify-between gap-3 flex-wrap mt-1">
                     <a
                       href={proj.link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-[var(--purple-light)] to-[var(--purple-mid)] text-white text-xs font-semibold rounded-full transition-all duration-300 hover:scale-105"
+                      className="tc-btn inline-flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-[var(--purple-light)] to-[var(--purple-mid)] text-white text-xs font-semibold rounded-full transition-all duration-300 hover:scale-105"
                     >
                       {proj.link.github && <GithubIcon size={14} />}
                       {proj.link.label}
@@ -344,7 +356,7 @@ export default function Projects() {
                         href={proj.repoUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-5 py-2 border border-[var(--purple-dark)]/50 text-[var(--purple-light)] text-xs font-semibold rounded-full transition-all duration-300 hover:scale-105 hover:bg-[var(--purple-dark)]/20"
+                        className="tc-btn tc-btn-ghost inline-flex items-center gap-2 px-5 py-2 border border-[var(--purple-dark)]/50 text-[var(--purple-light)] text-xs font-semibold rounded-full transition-all duration-300 hover:scale-105 hover:bg-[var(--purple-dark)]/20"
                       >
                         <GithubIcon size={14} />
                         {t.projects.visitRepo}
@@ -359,9 +371,26 @@ export default function Projects() {
                     )}
                   </div>
                 </div>
-              </BorderGlow>
-            </div>
-          ))}
+            )
+
+            return (
+              <div key={proj.title} className="proj-card opacity-0 h-full">
+                {proj.variant ? (
+                  <TransformCard variant={proj.variant}>{body}</TransformCard>
+                ) : (
+                  <BorderGlow
+                    className="h-full"
+                    backgroundColor="var(--bg)"
+                    borderRadius={16}
+                    glowColor="280 80 70"
+                    colors={["#892CDC", "#BC6FF1", "#52057B"]}
+                  >
+                    {body}
+                  </BorderGlow>
+                )}
+              </div>
+            )
+          })}
         </div>
 
         {/* GitHub repos */}

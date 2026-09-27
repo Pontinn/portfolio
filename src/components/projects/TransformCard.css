@@ -1,0 +1,442 @@
+/* Transformable project cards (Pontindex and Zoi da Goiaba).
+   Values ported from the approved prototype (.forge/ideas/project-cards-hover/ui-refs/proto).
+   Everything is scoped under .tc so the other cards are untouched; the normal state
+   adds nothing visible, only the active state (.tc-on) changes the card. */
+
+.tc {
+  --tc-dur: 550ms;
+  --tc-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* Pontindex (classic theme) */
+  --pk-red: #DC0A2D;
+  --pk-red-dark: #A50722;
+  --pk-yellow: #FFCB05;
+
+  /* Zoi da Goiaba */
+  --z-bg: #0e0b12;
+  --z-elevated: #201a2b;
+  --z-accent: #9d00ff;
+  --z-accent-hover: #b23dff;
+  --z-text: #f2eef7;
+  --z-text-2: #a99bc0;
+  --z-danger: #ff3d5e;
+
+  position: relative;
+  height: 100%;
+  transition: transform var(--tc-dur) var(--tc-ease);
+  will-change: transform;
+}
+.tc.tc-on {
+  transform: scale(1.045);
+  z-index: 10;
+}
+.tc-shake {
+  height: 100%;
+}
+
+/* the BorderGlow card itself: background, border and glow follow the state */
+.tc .border-glow-card {
+  transition:
+    background-color var(--tc-dur) var(--tc-ease),
+    box-shadow var(--tc-dur) var(--tc-ease),
+    border-color var(--tc-dur) var(--tc-ease),
+    color var(--tc-dur) var(--tc-ease);
+}
+.tc .border-glow-inner {
+  overflow: hidden;
+  border-radius: inherit;
+  height: 100%;
+}
+.tc .tc-content {
+  z-index: 3;
+}
+
+/* shared layers */
+.tc-bg,
+.tc-scan,
+.tc-flash,
+.tc-peeks,
+.tc-cursors {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.tc-bg {
+  z-index: 0;
+  opacity: 0;
+  transition: opacity var(--tc-dur) var(--tc-ease);
+}
+/* scanlines: the card becomes a "screen" (Zoi 3.5% every 4px; Pontindex 18% every 3px) */
+.tc-scan {
+  z-index: 2;
+  opacity: 0;
+  transition: opacity var(--tc-dur) var(--tc-ease);
+  background: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 4px);
+}
+.tc-pontindex .tc-scan {
+  background: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.18) 0 1px, transparent 1px 3px);
+}
+.tc-on .tc-scan {
+  opacity: 1;
+}
+
+/* state switch (same on both cards): white flash + shake */
+.tc-flash {
+  z-index: 9;
+  background: #fff;
+  opacity: 0;
+  border-radius: inherit;
+}
+.tc-shake.tc-switching {
+  animation: tc-shake 380ms cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+.tc-shake.tc-switching .tc-flash {
+  animation: tc-flash 260ms ease-out both;
+}
+@keyframes tc-flash {
+  0% { opacity: 0; }
+  25% { opacity: 0.95; }
+  100% { opacity: 0; }
+}
+@keyframes tc-shake {
+  0%, 100% { translate: 0 0; rotate: 0deg; }
+  15% { translate: -7px 2px; rotate: -0.6deg; }
+  30% { translate: 7px -2px; rotate: 0.6deg; }
+  45% { translate: -5px 1px; rotate: -0.4deg; }
+  60% { translate: 5px -1px; rotate: 0.4deg; }
+  75% { translate: -3px 0; rotate: -0.2deg; }
+  90% { translate: 2px 0; rotate: 0.1deg; }
+}
+
+/* text pieces that change with the state */
+.tc .tc-title,
+.tc .tc-subtitle,
+.tc .tc-desc,
+.tc .tc-tag,
+.tc .tc-pill {
+  transition: all var(--tc-dur) var(--tc-ease);
+}
+
+/* ======================= PONTINDEX ======================= */
+.tc-pontindex.tc-on .border-glow-card {
+  border-color: rgba(255, 255, 255, 0.55);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.3),
+    0 0 60px rgba(220, 10, 45, 0.9),
+    0 0 140px rgba(220, 10, 45, 0.6),
+    0 0 220px rgba(220, 10, 45, 0.35),
+    0 20px 50px rgba(0, 0, 0, 0.5);
+}
+.tc-pontindex.tc-on .tc-title {
+  font-family: var(--font-fredoka), var(--font-geist-sans), sans-serif;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.3px;
+  font-size: 24px;
+  text-shadow: 0 2px 0 var(--pk-red-dark);
+}
+.tc-pontindex.tc-on .tc-subtitle {
+  font-family: var(--font-silkscreen), monospace;
+  font-size: 10px;
+  color: var(--pk-yellow);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.tc-pontindex.tc-on .tc-desc {
+  color: #fff;
+  opacity: 0.92;
+}
+.tc-pontindex.tc-on .tc-tag {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.35);
+  font-family: var(--font-silkscreen), monospace;
+  font-size: 9px;
+}
+.tc-pontindex.tc-on .tc-pill-status,
+.tc-pontindex.tc-on .tc-pill-personal {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+.tc-pontindex.tc-on .tc-pill-new {
+  background: var(--pk-yellow);
+  color: #2B2200;
+  box-shadow: 0 0 14px rgba(255, 203, 5, 0.55);
+}
+.tc-pontindex.tc-on .tc-pill-new .tc-pill-dot {
+  background: #2B2200;
+}
+.tc-pontindex.tc-on .tc-pill {
+  font-family: var(--font-silkscreen), monospace;
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: 0.3px;
+}
+.tc-pontindex.tc-on .tc-btn {
+  background: #fff;
+  color: var(--pk-red);
+  box-shadow: 0 4px 0 var(--pk-red-dark);
+  font-family: var(--font-silkscreen), monospace;
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.3px;
+}
+.tc-pontindex.tc-on .tc-btn-ghost {
+  background: transparent;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: none;
+}
+
+.tc-pokeball {
+  position: absolute;
+  right: -60px;
+  bottom: -70px;
+  width: 260px;
+  height: 260px;
+  z-index: 1;
+  pointer-events: none;
+  background: url("/projects/pontindex/pokebola.webp") center/contain no-repeat;
+  opacity: 0;
+  transform: rotate(0deg) scale(0.7);
+  transition: opacity var(--tc-dur) var(--tc-ease), transform var(--tc-dur) var(--tc-ease);
+  filter: saturate(0) brightness(3);
+}
+.tc-pontindex.tc-on .tc-pokeball {
+  opacity: 0.13;
+  animation: tc-spin 14s linear infinite;
+}
+@keyframes tc-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Pokemon peeking through the edges: out of the card (--ox/--oy), in, wait, back the same way */
+.tc-peek {
+  position: absolute;
+  pointer-events: none;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.45));
+  animation: tc-peek var(--life, 1000ms) cubic-bezier(0.2, 0.9, 0.3, 1) both;
+}
+.tc-peek-back { z-index: 2; }  /* behind the text */
+.tc-peek-front { z-index: 4; } /* in front, covering */
+.tc-peek-flip { --sx: -1; }
+@keyframes tc-peek {
+  0% { transform: translate(var(--ox), var(--oy)) rotate(var(--rot, 0deg)) scaleX(var(--sx, 1)); }
+  28% { transform: translate(0, 0) rotate(var(--rot, 0deg)) scaleX(var(--sx, 1)); }
+  72% { transform: translate(0, 0) rotate(var(--rot, 0deg)) scaleX(var(--sx, 1)); }
+  100% { transform: translate(var(--ox), var(--oy)) rotate(var(--rot, 0deg)) scaleX(var(--sx, 1)); }
+}
+
+/* ======================= ZOI DA GOIABA ======================= */
+.tc-zoi .tc-bg {
+  background: radial-gradient(120% 90% at 100% 100%, #2a1240 0%, var(--z-elevated) 40%, var(--z-bg) 100%);
+}
+.tc-zoi.tc-on .tc-bg {
+  opacity: 1;
+}
+.tc-zoi.tc-on .border-glow-card {
+  border-color: rgba(178, 61, 255, 0.6);
+  box-shadow:
+    0 0 0 1px rgba(178, 61, 255, 0.45),
+    0 0 60px rgba(157, 0, 255, 0.8),
+    0 0 140px rgba(157, 0, 255, 0.5),
+    0 0 220px rgba(157, 0, 255, 0.3),
+    0 20px 50px rgba(0, 0, 0, 0.55);
+  color: var(--z-text);
+}
+@media (hover: hover) {
+  /* the visitor's mouse becomes the "you" pointer: native cursor hidden (desktop only) */
+  .tc-zoi.tc-on {
+    cursor: none;
+  }
+}
+.tc-zoi.tc-on .tc-title {
+  color: var(--z-text);
+  font-size: 24px;
+  letter-spacing: -0.3px;
+  margin-top: 26px; /* room for the LIVE row */
+}
+.tc .tc-badges {
+  transition: top var(--tc-dur) var(--tc-ease);
+}
+@media (max-width: 767px) {
+  /* narrow screens: the LIVE row takes the first line alone, the pills move under it */
+  .tc-zoi.tc-on .tc-badges {
+    top: 48px;
+  }
+}
+.tc-zoi.tc-on .tc-subtitle {
+  color: var(--z-accent-hover);
+}
+.tc-zoi.tc-on .tc-desc {
+  color: var(--z-text);
+  opacity: 0.82;
+}
+.tc-zoi.tc-on .tc-tag {
+  color: var(--z-text);
+  background: rgba(157, 0, 255, 0.15);
+  border-color: rgba(157, 0, 255, 0.45);
+}
+.tc-zoi.tc-on .tc-pill-status,
+.tc-zoi.tc-on .tc-pill-personal {
+  color: var(--z-accent-hover);
+  background: rgba(157, 0, 255, 0.15);
+  border-color: rgba(157, 0, 255, 0.5);
+}
+.tc-zoi.tc-on .tc-pill-new {
+  background: var(--z-accent);
+  box-shadow: 0 0 14px rgba(157, 0, 255, 0.6);
+}
+.tc-zoi.tc-on .tc-btn {
+  background: var(--z-accent);
+  box-shadow: 0 0 18px rgba(157, 0, 255, 0.55);
+}
+
+.tc-goiaba {
+  position: absolute;
+  right: -40px;
+  bottom: -50px;
+  width: 240px;
+  height: 240px;
+  z-index: 1;
+  pointer-events: none;
+  background: url("/projects/zoi/logo-goiaba.png") center/contain no-repeat;
+  opacity: 0;
+  transform: translateY(24px) rotate(-8deg) scale(0.85);
+  transition: opacity var(--tc-dur) var(--tc-ease), transform var(--tc-dur) var(--tc-ease);
+}
+.tc-zoi.tc-on .tc-goiaba {
+  opacity: 0.22;
+  transform: translateY(0) rotate(-6deg) scale(1);
+  animation: tc-float 5s ease-in-out infinite;
+}
+@keyframes tc-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -8px; }
+}
+
+/* LIVE pill + avatars + stream meta (only while active; nothing leaves the card) */
+.tc-live {
+  position: absolute;
+  left: 24px;
+  top: 16px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: all var(--tc-dur) var(--tc-ease);
+  pointer-events: none;
+}
+.tc-zoi.tc-on .tc-live {
+  opacity: 1;
+  transform: none;
+}
+.tc-live-rec {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  color: #fff;
+  background: var(--z-danger);
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+.tc-live-rec i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+  animation: tc-pulse 1.2s infinite;
+}
+@keyframes tc-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+.tc-live-meta {
+  font-size: 11px;
+  color: var(--z-text-2);
+  font-variant-numeric: tabular-nums;
+}
+.tc-avatars {
+  display: flex;
+}
+.tc-avatars b {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 10px;
+  font-weight: 700;
+  margin-left: -6px;
+  border: 2px solid var(--z-bg);
+}
+.tc-avatars b:first-child {
+  margin-left: 0;
+}
+
+/* viewer pointers (faithful to the CursorMarker of the app) */
+.tc-cursors {
+  z-index: 4;
+  opacity: 0;
+  transition: opacity 300ms;
+}
+.tc-zoi.tc-on .tc-cursors {
+  opacity: 1;
+}
+.tc-cursor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  will-change: transform;
+  transition: transform 1400ms cubic-bezier(0.25, 0.1, 0.25, 1), opacity 400ms;
+}
+.tc-cursor-me {
+  transition: transform 40ms linear, opacity 300ms;
+}
+.tc-cursor-idle {
+  opacity: 0;
+}
+.tc-cursor svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.6));
+}
+.tc-cursor span {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #0e0b12d9;
+  border: 1px solid;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px #00000099;
+}
+.tc-cursor-enter svg,
+.tc-cursor-enter span {
+  animation: tc-zin 180ms cubic-bezier(0.2, 0, 0, 1) both;
+}
+@keyframes tc-zin {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* reduced motion: only the color/style switch, nothing moves */
+@media (prefers-reduced-motion: reduce) {
+  .tc,
+  .tc * {
+    transition-duration: 1ms !important;
+    animation: none !important;
+  }
+}

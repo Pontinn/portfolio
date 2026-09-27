@@ -68,6 +68,9 @@ export const translations = {
       publicSource: "Código público",
       visitRepo: "Acessar repositório",
       newBadge: "Novo",
+      personalProject: "Projeto pessoal",
+      live: "AO VIVO",
+      you: "você",
       pitmaster: {
         title: "Pitmaster",
         subtitle: "Plataforma de Competições de Churrasco",
@@ -181,6 +184,9 @@ export const translations = {
       publicSource: "Public source",
       visitRepo: "Visit repository",
       newBadge: "New",
+      personalProject: "Personal project",
+      live: "LIVE",
+      you: "you",
       pitmaster: {
         title: "Pitmaster",
         subtitle: "BBQ Competition Platform",
