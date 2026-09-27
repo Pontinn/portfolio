@@ -72,6 +72,9 @@ Fazer os cards dos projetos **Zói da Goiaba** e **Pontindex** "virarem outro ca
   - Sons do Discord: `discord_join.mp3`, `discord_leave.mp3` (cópias em `ui-refs/proto/`).
   - Fontes Fredoka e Silkscreen (Google Fonts, via next/font como as Geist já usadas). Inter para o Zói (ou usar a Geist do site, a decidir no SPEC).
 
+## Pílula "Projeto pessoal" (pedido do Pontin, 2026-09-27)
+- Zói e Pontindex são projetos próprios; os outros cards são trabalhos contratados. Marcar os dois com uma pílula extra na linha de badges: PT "Projeto pessoal", EN "Personal project", ícone de coração (lucide, 11px), mesmo estilo roxo da pílula "Código público". No estado ativo segue a paleta do card como as outras pílulas. Sutil, sem ficar mais forte que as outras badges. Só nesses dois cards.
+
 ## Fora de escopo / não mudar
 (a confirmar com o Pontin)
 
