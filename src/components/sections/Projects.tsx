@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useLang } from "@/lib/LangContext"
-import { ExternalLink, Star, Lock, GitBranch, Users, CreditCard, Database, Activity } from "lucide-react"
+import { ExternalLink, Star, Lock, GitBranch, Users, CreditCard, Database, GitCommit } from "lucide-react"
 import { AnimatedCounter } from "@/components/ui/Counter"
 import BorderGlow from "@/components/ui/BorderGlow"
 import DecryptedText from "@/components/ui/DecryptedText"
@@ -27,9 +27,16 @@ type GitHubRepo = {
   stargazers_count: number
 }
 
-const pitmasterStack = ["Java 17", "Spring Boot", "PostgreSQL", "AWS S3", "Stripe", "MercadoPago", "JWT", "Docker", "Flyway"]
-const kalyfitStack = ["Java", "Spring Boot", "PostgreSQL", "OpenAI API", "Stripe", "Docker", "JWT"]
-const kobafitStack = ["Java", "Spring Boot", "PostgreSQL", "Multi-tenant", "Stripe", "Docker", "JWT"]
+const pitmasterStack = ["Java 17", "Spring Boot 3", "PostgreSQL", "Flyway", "Stripe", "Mercado Pago", "JWT", "AWS S3", "Docker", "GitHub Actions", "React", "TypeScript"]
+const zoiStack = ["Electron", "TypeScript", "React", "WebRTC", "PeerJS", "C++ Addon", "Zustand", "Vitest", "Playwright"]
+// Badges "Novo": somem sozinhas depois da data de cada uma (contadas a partir de 27/09/2026)
+const NOW = Date.now()
+const ZOI_IS_NEW = NOW < new Date("2026-10-27T23:59:59-03:00").getTime() // 1 mês
+const POKEDEX_IS_NEW = NOW < new Date("2026-11-27T23:59:59-03:00").getTime() // 2 meses
+
+const pokedexStack = ["React 19", "TypeScript", "Vite", "Zustand", "IndexedDB", "PWA", "Node", "Vitest", "Playwright"]
+const experioStack = ["NestJS", "TypeScript", "Prisma", "PostgreSQL", "Redis", "Stripe", "React", "Capacitor", "i18n"]
+const kobafitStack = ["Java 17", "Spring Boot", "PostgreSQL", "Multi-tenant", "Stripe", "OpenAI API", "Flyway", "JWT", "Docker"]
 
 function Badge({ text }: { text: string }) {
   return (
@@ -159,7 +166,7 @@ export default function Projects() {
           />
         </h2>
 
-        {/* Pitmaster — destaque */}
+        {/* Pitmaster: destaque */}
         <div className="proj-card opacity-0 mb-10">
         <BorderGlow
           backgroundColor="#0a0a0a"
@@ -200,10 +207,10 @@ export default function Projects() {
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-3">
                 {[
-                  { label: "Usuários", value: <AnimatedCounter target={100} suffix="+" fontSize={20} />, icon: <Users size={14} /> },
+                  { label: "Usuários", value: <AnimatedCounter target={300} suffix="+" fontSize={20} />, icon: <Users size={14} /> },
                   { label: "Gateways", value: <AnimatedCounter target={2} fontSize={20} />, icon: <CreditCard size={14} /> },
-                  { label: "Migrations", value: <AnimatedCounter target={57} suffix="+" fontSize={20} />, icon: <Database size={14} /> },
-                  { label: "Status", value: <span className="text-xl font-bold text-[var(--purple-light)]">Live</span>, icon: <Activity size={14} /> },
+                  { label: "Migrations", value: <AnimatedCounter target={110} suffix="+" fontSize={20} />, icon: <Database size={14} /> },
+                  { label: "Commits", value: <AnimatedCounter target={1500} suffix="+" fontSize={20} />, icon: <GitCommit size={14} /> },
                 ].map((stat, i) => (
                   <BorderGlow
                     key={i}
@@ -225,22 +232,61 @@ export default function Projects() {
               <div className="flex flex-wrap gap-2">
                 {pitmasterStack.map((s) => <Badge key={s} text={s} />)}
               </div>
+              <div className="pt-3">
+              <a
+                href="https://pitmastersbr.com.br/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-[var(--purple-light)] to-[var(--purple-mid)] text-white text-sm font-semibold rounded-full transition-all duration-300 hover:scale-105"
+              >
+                {t.projects.visitSite}
+                <ExternalLink size={14} />
+              </a>
+              </div>
             </div>
           </div>
         </div>
         </BorderGlow>
         </div>
 
-        {/* KalyFit + KobaFit */}
+        {/* Zói da Goiaba + Pontindex + Experio + KobaFit (2x2) */}
         <div className="grid md:grid-cols-2 gap-6 mb-12">
           {[
             {
-              title: t.projects.kalyfit.title,
-              subtitle: t.projects.kalyfit.subtitle,
-              description: t.projects.kalyfit.description,
-              stack: kalyfitStack,
-              badge: t.projects.liveApp,
-              badgeColor: "bg-blue-500/15 text-blue-400 border-blue-500/30",
+              title: t.projects.zoi.title,
+              subtitle: t.projects.zoi.subtitle,
+              description: t.projects.zoi.description,
+              stack: zoiStack,
+              badge: t.projects.publicSource,
+              badgeColor: "bg-[var(--purple-dark)]/20 text-[var(--purple-light)] border-[var(--purple-dark)]/40",
+              link: { url: "https://github.com/Pontinn/zoi-da-goiaba", label: t.projects.visitRepo, github: true },
+              repoUrl: null,
+              privateRepo: false,
+              isNew: ZOI_IS_NEW,
+            },
+            {
+              title: t.projects.pokedex.title,
+              subtitle: t.projects.pokedex.subtitle,
+              description: t.projects.pokedex.description,
+              stack: pokedexStack,
+              badge: t.projects.inProduction,
+              badgeColor: "bg-green-500/15 text-green-400 border-green-500/30",
+              link: { url: "https://pontindex.pontin.dev/", label: t.projects.visitSite, github: false },
+              repoUrl: "https://github.com/Pontinn/pokedex-atm",
+              privateRepo: false,
+              isNew: POKEDEX_IS_NEW,
+            },
+            {
+              title: t.projects.experio.title,
+              subtitle: t.projects.experio.subtitle,
+              description: t.projects.experio.description,
+              stack: experioStack,
+              badge: t.projects.inProduction,
+              badgeColor: "bg-green-500/15 text-green-400 border-green-500/30",
+              link: { url: "https://experio.world/", label: t.projects.visitSite, github: false },
+              repoUrl: null,
+              privateRepo: true,
+              isNew: false,
             },
             {
               title: t.projects.kobafit.title,
@@ -249,31 +295,68 @@ export default function Projects() {
               stack: kobafitStack,
               badge: t.projects.inProduction,
               badgeColor: "bg-green-500/15 text-green-400 border-green-500/30",
+              link: { url: "https://kobafit.com.br/", label: t.projects.visitSite, github: false },
+              repoUrl: null,
+              privateRepo: true,
+              isNew: false,
             },
           ].map((proj) => (
-            <div key={proj.title} className="proj-card opacity-0">
+            <div key={proj.title} className="proj-card opacity-0 h-full">
               <BorderGlow
+                className="h-full"
                 backgroundColor="var(--bg)"
                 borderRadius={16}
                 glowColor="280 80 70"
                 colors={["#892CDC", "#BC6FF1", "#52057B"]}
               >
-                <div className="relative p-6">
-                  <div className="absolute top-4 right-4">
+                <div className="relative p-6 h-full flex flex-col">
+                  <div className="absolute top-4 right-4 flex items-center gap-2">
+                    {proj.isNew && (
+                      <span className="flex items-center gap-1 text-xs font-bold text-white px-2.5 py-1 rounded-full bg-gradient-to-r from-[var(--purple-light)] to-[var(--purple-mid)] shadow-[0_0_12px_rgba(188,111,241,0.5)]">
+                        <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                        {t.projects.newBadge}
+                      </span>
+                    )}
                     <span className={`text-xs font-semibold border px-2.5 py-1 rounded-full ${proj.badgeColor}`}>
                       {proj.badge}
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-bold text-[var(--text)] mb-1 pr-20 md:pr-28">{proj.title}</h3>
+                  <h3 className={`text-xl font-bold text-[var(--text)] mb-1 ${proj.isNew ? "pr-36 md:pr-44" : "pr-20 md:pr-28"}`}>{proj.title}</h3>
                   <p className="text-[var(--purple-mid)] text-sm font-medium mb-3">{proj.subtitle}</p>
-                  <p className="text-xs text-[var(--text)] opacity-65 leading-relaxed mb-4">{proj.description}</p>
+                  <p className="text-xs text-[var(--text)] opacity-65 leading-relaxed mb-4 flex-1">{proj.description}</p>
                   <div className="flex flex-wrap gap-1.5 mb-3">
                     {proj.stack.map((s) => <Badge key={s} text={s} />)}
                   </div>
-                  <div className="flex items-center gap-1 text-xs text-[var(--text)] opacity-40">
-                    <Lock size={11} />
-                    {t.projects.privateRepo}
+                  <div className="flex items-center justify-between gap-3 flex-wrap mt-1">
+                    <a
+                      href={proj.link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-[var(--purple-light)] to-[var(--purple-mid)] text-white text-xs font-semibold rounded-full transition-all duration-300 hover:scale-105"
+                    >
+                      {proj.link.github && <GithubIcon size={14} />}
+                      {proj.link.label}
+                      <ExternalLink size={12} />
+                    </a>
+                    {proj.repoUrl && (
+                      <a
+                        href={proj.repoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-5 py-2 border border-[var(--purple-dark)]/50 text-[var(--purple-light)] text-xs font-semibold rounded-full transition-all duration-300 hover:scale-105 hover:bg-[var(--purple-dark)]/20"
+                      >
+                        <GithubIcon size={14} />
+                        {t.projects.visitRepo}
+                        <ExternalLink size={12} />
+                      </a>
+                    )}
+                    {proj.privateRepo && (
+                      <div className="flex items-center gap-1 text-xs text-[var(--text)] opacity-40">
+                        <Lock size={11} />
+                        {t.projects.privateRepo}
+                      </div>
+                    )}
                   </div>
                 </div>
               </BorderGlow>
