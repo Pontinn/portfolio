@@ -9,6 +9,11 @@ const FAMOUS = [25, 6, 1, 4, 7, 133, 150, 143, 94, 448]
 const EDGES = ["left", "right", "top", "bottom"] as const
 const PLACEMENT_ATTEMPTS = 12
 const GAP_PX = 6
+// concurrent sprites and sizes: lighter on phones (viewports below 768px)
+const MAX_ON_STAGE_DESKTOP = 5
+const MAX_ON_STAGE_MOBILE = 3
+const SIZE_RANGE_DESKTOP: [number, number] = [110, 160]
+const SIZE_RANGE_MOBILE: [number, number] = [96, 130]
 
 type Rect = { l: number; t: number; r: number; b: number }
 
@@ -62,13 +67,17 @@ export default function PontindexFx({ on, fxEnabled }: PontindexFxProps) {
     const height = layer.offsetHeight
     const count = Math.random() < 0.3 ? 2 : 1
     const born: Peek[] = []
+    const mobile = window.matchMedia("(max-width: 767px)").matches
+    const maxOnStage = mobile ? MAX_ON_STAGE_MOBILE : MAX_ON_STAGE_DESKTOP
+    const [minSize, maxSize] = mobile ? SIZE_RANGE_MOBILE : SIZE_RANGE_DESKTOP
 
     for (let i = 0; i < count; i++) {
+      if (onStage.current.size >= maxOnStage) break
       const free = FAMOUS.filter((id) => !onStage.current.has(id))
       if (!free.length) break
       const id = free[rndi(0, free.length - 1)]
       onStage.current.add(id)
-      const size = rndi(110, 160)
+      const size = rndi(minSize, maxSize)
       // always on an edge: 65 to 85% of the body comes in (face always visible)
       const half = size * rnd(0.15, 0.35)
 

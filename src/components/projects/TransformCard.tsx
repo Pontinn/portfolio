@@ -24,7 +24,7 @@ const VARIANT_THEME: Record<TransformCardVariant, VariantTheme> = {
   pontindex: {
     glowColor: "0 0 100", // white interactive border
     colors: ["#ffffff", "#ffffff", "#ffffff"],
-    backgroundColor: "#DC0A2D", // Pontindex classic red
+    backgroundColor: "var(--bg)", // the classic red crossfades in on the .tc-bg layer (compositor only)
     sounds: { on: "pontindexOn", off: "pontindexOff" },
   },
   zoi: {
@@ -79,6 +79,8 @@ export default function TransformCard({ variant, children, className = "" }: Tra
       data-active={on ? "true" : "false"}
     >
       <div ref={shakeRef} className="tc-shake">
+        {/* colored glow behind the card: always painted, only its opacity animates (compositor only) */}
+        <div className="tc-glow" aria-hidden="true" />
         <BorderGlow
           className="h-full"
           backgroundColor={glow.backgroundColor}

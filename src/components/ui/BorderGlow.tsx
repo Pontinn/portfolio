@@ -113,17 +113,33 @@ export default function BorderGlow({
     return degrees
   }, [getCenterOfElement])
 
-  const handlePointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+  // pointermove can fire several times per frame (high polling rate mice); the masked
+  // border layers are expensive to repaint, so the update is coalesced to one per frame
+  const pendingPointer = useRef<{ x: number; y: number } | null>(null)
+  const pointerFrame = useRef<number | null>(null)
+
+  const applyPointer = useCallback(() => {
+    pointerFrame.current = null
     const card = cardRef.current
-    if (!card) return
+    const p = pendingPointer.current
+    if (!card || !p) return
     const rect = card.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
+    const x = p.x - rect.left
+    const y = p.y - rect.top
     const edge = getEdgeProximity(card, x, y)
     const angle = getCursorAngle(card, x, y)
     card.style.setProperty("--edge-proximity", `${(edge * 100).toFixed(3)}`)
     card.style.setProperty("--cursor-angle", `${angle.toFixed(3)}deg`)
   }, [getEdgeProximity, getCursorAngle])
+
+  const handlePointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    pendingPointer.current = { x: e.clientX, y: e.clientY }
+    if (pointerFrame.current === null) pointerFrame.current = requestAnimationFrame(applyPointer)
+  }, [applyPointer])
+
+  useEffect(() => () => {
+    if (pointerFrame.current !== null) cancelAnimationFrame(pointerFrame.current)
+  }, [])
 
   useEffect(() => {
     if (!animated || !cardRef.current) return
